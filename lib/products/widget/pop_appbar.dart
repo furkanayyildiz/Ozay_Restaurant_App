@@ -15,7 +15,7 @@ class PopAppbar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: AspectRatio(
+      title: const AspectRatio(
         aspectRatio: 4,
         child: Image(
           image: AssetImage('assets/images/logo.png'),
@@ -31,5 +31,6 @@ class PopAppbar extends StatelessWidget with PreferredSizeWidget {
     );
   }
 
+  @override
   Size get preferredSize => appBarHeight;
 }
