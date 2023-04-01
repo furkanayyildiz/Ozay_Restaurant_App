@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ozay_restaurant_app/products/widget/carousel_slider/carousel_card.dart';
+import 'package:ozay_restaurant_app/products/widget/carousel_slider/category_model.dart';
+import '../products/widget/pop_appbar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -6,12 +10,25 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
-      body: const Center(
-        child: Text('Home Page...'),
-      ),
-    );
+        appBar: const PopAppbar(),
+        body: Column(
+          children: [
+            Container(
+                child: CarouselSlider(
+              options: CarouselOptions(
+                aspectRatio: 2.0,
+                viewportFraction: 0.9,
+                enlargeCenterPage: true,
+                enableInfiniteScroll: false,
+                enlargeStrategy: CenterPageEnlargeStrategy.height,
+                initialPage: 2,
+                autoPlay: true,
+              ),
+              items: Category.categories
+                  .map((category) => CarouselCard(category: category))
+                  .toList(),
+            )),
+          ],
+        ));
   }
 }
