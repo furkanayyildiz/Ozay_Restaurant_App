@@ -19,7 +19,25 @@ class BottomBar extends StatelessWidget {
         TabItem(title: "Contact", icon: Icons.phone_in_talk_outlined),
         TabItem(title: "Profile", icon: Icons.person),
       ],
-      onTap: (int i) => print('click index=$i'),
+      onTap: (int i) {
+        switch (i) {
+          case 0:
+            Navigator.pushNamed(context, '/home');
+            break;
+          case 1:
+            Navigator.pushNamed(context, '/menu');
+            break;
+          case 2:
+            Navigator.pushNamed(context, '/sepet');
+            break;
+          case 3:
+            Navigator.pushNamed(context, '/contact');
+            break;
+          case 4:
+            Navigator.pushNamed(context, '/profile');
+            break;
+        }
+      },
     );
   }
 }

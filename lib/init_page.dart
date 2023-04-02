@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // View
 import './view/home_page.dart';
+import 'view/profile_page.dart';
 // Bloc
 import 'package:ozay_restaurant_app/core/HomePage/bloc/home_page_bloc.dart';
 

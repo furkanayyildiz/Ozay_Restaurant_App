@@ -5,7 +5,13 @@ abstract class InitPageHelper {
     BlocProvider<HomePageBloc>(create: (context) => HomePageBloc()),
   ];
 
-  final Map<String, Widget Function(BuildContext)> routes = {};
+  final Map<String, Widget Function(BuildContext)> routes = {
+    '/home': (context) => HomePage(),
+    // '/menu': (context) => MenuPage(),
+    // '/sepet': (context) => SepetPage(),
+    // '/contact': (context) => ContactPage(),
+    '/profile': (context) => ProfilePage(),
+  };
 
   final ThemeData themeData = ThemeData();
 }
