@@ -1,6 +1,8 @@
 //Import
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ozay_restaurant_app/products/widget/profile/constants.dart';
 
 // View
 import './view/home_page.dart';
@@ -27,14 +29,19 @@ class _InitPageState extends State<InitPage> with InitPageHelper {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: blocProviders,
-      child: MaterialApp(
-        title: 'Ozay Restaurant App',
-        themeMode: ThemeMode.system,
-        theme: themeData,
-        routes: routes,
-        home: Scaffold(
-          body: const HomePage(),
-        ),
+      child: ThemeProvider(
+        initTheme: kLightTheme,
+        child: Builder(builder: (context) {
+          return MaterialApp(
+            title: 'Ozay Restaurant App',
+            themeMode: ThemeMode.system,
+            theme: Theme.of(context),
+            routes: routes,
+            home: Scaffold(
+              body: const HomePage(),
+            ),
+          );
+        }),
       ),
     );
   }

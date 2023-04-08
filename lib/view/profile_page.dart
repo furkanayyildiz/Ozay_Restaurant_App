@@ -11,8 +11,9 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenUtil.init(
       context,
-      designSize: Size(300, 300),
+      designSize: const Size(414, 896),
     );
+
     var profileInfo = Expanded(
       child: Column(
         children: <Widget>[
@@ -24,7 +25,7 @@ class ProfilePage extends StatelessWidget {
               children: <Widget>[
                 CircleAvatar(
                   radius: kSpacingUnit.w * 5,
-                  backgroundImage: AssetImage('assets/images/avatar.png'),
+                  backgroundImage: AssetImage('assets/images/logo.png'),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
@@ -78,6 +79,33 @@ class ProfilePage extends StatelessWidget {
       ),
     );
 
+    var themeSwitcher = ThemeSwitcher(
+      builder: (context) {
+        return AnimatedCrossFade(
+          duration: Duration(milliseconds: 200),
+          crossFadeState: Theme.of(context).brightness == Brightness.dark
+              ? CrossFadeState.showFirst
+              : CrossFadeState.showSecond,
+          firstChild: GestureDetector(
+            onTap: () =>
+                ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
+            child: Icon(
+              LineAwesomeIcons.sun,
+              size: ScreenUtil().setSp(kSpacingUnit.w * 3),
+            ),
+          ),
+          secondChild: GestureDetector(
+            onTap: () =>
+                ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
+            child: Icon(
+              LineAwesomeIcons.moon,
+              size: ScreenUtil().setSp(kSpacingUnit.w * 3),
+            ),
+          ),
+        );
+      },
+    );
+
     var header = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,6 +116,7 @@ class ProfilePage extends StatelessWidget {
           size: ScreenUtil().setSp(kSpacingUnit.w * 3),
         ),
         profileInfo,
+        themeSwitcher,
         SizedBox(width: kSpacingUnit.w * 3),
       ],
     );
@@ -96,7 +125,6 @@ class ProfilePage extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            appBar: const PopAppbar(),
             body: Column(
               children: <Widget>[
                 SizedBox(height: kSpacingUnit.w * 5),
