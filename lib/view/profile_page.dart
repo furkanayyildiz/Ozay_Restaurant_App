@@ -52,12 +52,12 @@ class ProfilePage extends StatelessWidget {
           ),
           SizedBox(height: kSpacingUnit.w * 2),
           Text(
-            'Nicolas Adams',
+            'Furkan Ayyildiz',
             style: kTitleTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 0.5),
           Text(
-            'nicolasadams@gmail.com',
+            'furkan199905@gmail.com',
             style: kCaptionTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 2),
@@ -111,9 +111,12 @@ class ProfilePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(width: kSpacingUnit.w * 3),
-        Icon(
-          LineAwesomeIcons.arrow_left,
-          size: ScreenUtil().setSp(kSpacingUnit.w * 3),
+        IconButton(
+          icon: Icon(
+            LineAwesomeIcons.arrow_left,
+            size: ScreenUtil().setSp(kSpacingUnit.w * 3),
+          ),
+          onPressed: () => Navigator.pop(context),
         ),
         profileInfo,
         themeSwitcher,

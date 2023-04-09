@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>263847395971-1e7eo385903m7nueq0m08ms8noh7jbp6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.263847395971-1e7eo385903m7nueq0m08ms8noh7jbp6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCxr5LvUvHfbtj_nj1hBfUmCBx8XfDk92c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>263847395971</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.ozayRestaurantApp</string>
+	<key>PROJECT_ID</key>
+	<string>ozay-restaurant-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ozay-restaurant-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:263847395971:ios:905fbfd2f15f71a36c51b6</string>
+</dict>
+</plist>

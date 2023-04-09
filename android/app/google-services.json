@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "263847395971",
+    "project_id": "ozay-restaurant-app",
+    "storage_bucket": "ozay-restaurant-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263847395971:android:6085d00d53b8248e6c51b6",
+        "android_client_info": {
+          "package_name": "com.example.ozay_restaurant_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263847395971-4v9jqo37tlcnhpuotklaj66gkfd6cvtv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaHoHwKhuB0TKPkZPtQLXhnEl6iO-bFjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263847395971-4v9jqo37tlcnhpuotklaj66gkfd6cvtv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
