@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../view/login_view.dart';
+
 class PopAppbar extends StatelessWidget with PreferredSizeWidget {
   final Size appBarHeight;
   final Widget? actions;
@@ -23,7 +25,17 @@ class PopAppbar extends StatelessWidget with PreferredSizeWidget {
       ),
       centerTitle: true,
       automaticallyImplyLeading: false,
-      actions: [if (actions != null) actions!],
+      actions: [
+        //if (actions != null) actions!
+        TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginView()),
+              );
+            },
+            child: Text("Login"))
+      ],
       leadingWidth: 60,
       toolbarHeight: appBarHeight.height,
       backgroundColor: Colors.red,
