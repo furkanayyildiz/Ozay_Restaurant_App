@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import '../products/components/app_color.dart';
 import '../products/components/app_text.dart';
 import "../products/components/custom_textfield.dart";
 import "../products/components/custom_elevated_button.dart";
@@ -32,9 +31,9 @@ class LoginView extends StatelessWidget {
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.email,
-              prefixIcon: const Icon(
+              prefixIcon: Icon(
                 Icons.email,
-                color: AppColors.loginColor,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
             context.emptySizedHeightBoxLow,
@@ -42,9 +41,9 @@ class LoginView extends StatelessWidget {
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.password,
-              prefixIcon: const Icon(
+              prefixIcon: Icon(
                 Icons.lock,
-                color: AppColors.loginColor,
+                color: Theme.of(context).colorScheme.primary,
               ),
               suffixIcon: const Icon(Icons.remove_red_eye),
             ),
@@ -56,7 +55,7 @@ class LoginView extends StatelessWidget {
                 style: const TextStyle(color: Colors.white),
               ),
               borderRadius: 20,
-              color: AppColors.loginColor,
+              color: Theme.of(context).colorScheme.primary,
               height: context.height * 0.07,
               width: context.width * 0.6,
             ),
@@ -76,7 +75,7 @@ class LoginView extends StatelessWidget {
   SizedBox topImage(BuildContext context) {
     return SizedBox(
       height: context.height * 0.2,
-      child: Image.asset('assets/images/loginill.png'),
+      child: Image.asset('assets/images/logo.png'),
     );
   }
 
@@ -100,7 +99,7 @@ class LoginView extends StatelessWidget {
                 value: true,
                 onChanged: (value) {},
                 activeColor: Colors.white,
-                activeTrackColor: AppColors.loginColor,
+                activeTrackColor: Theme.of(context).colorScheme.primary,
               ),
               const Text(AppText.rememberMe),
             ],
@@ -143,9 +142,9 @@ class LoginView extends StatelessWidget {
             AppText.account,
           ),
           TextButton(
-            child: const Text(
+            child: Text(
               AppText.registernow,
-              style: TextStyle(color: AppColors.loginColor),
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
             ),
             onPressed: () {
               Navigator.push(

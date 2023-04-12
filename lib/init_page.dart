@@ -35,7 +35,7 @@ class _InitPageState extends State<InitPage> with InitPageHelper {
           return MaterialApp(
             title: 'Ozay Restaurant App',
             themeMode: ThemeMode.system,
-            theme: Theme.of(context),
+            theme: themeData,
             routes: routes,
             home: Scaffold(
               body: const HomePage(),
