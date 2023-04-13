@@ -6,10 +6,10 @@ abstract class InitPageHelper {
   ];
 
   final Map<String, Widget Function(BuildContext)> routes = {
-    '/home': (context) => HomePage(),
+    '/home': (context) => const HomePage(),
     // '/menu': (context) => MenuPage(),
     // '/sepet': (context) => SepetPage(),
-    // '/contact': (context) => ContactPage(),
+    '/contact': (context) => const ContactPage(),
     '/profile': (context) => ProfilePage(),
   };
 
@@ -51,7 +51,7 @@ abstract class InitPageHelper {
     //   ),
     // ),
     colorScheme: ColorScheme(
-      primary: Colors.red.shade900,
+      primary: Colors.red.shade800,
       secondary: Colors.blue.shade300,
       tertiary: Colors.redAccent.shade400,
       surface: Colors.white70,

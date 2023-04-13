@@ -50,14 +50,14 @@ class LoginView extends StatelessWidget {
             midText(context),
             context.emptySizedHeightBoxLow,
             CustomElevatedButton(
-              child: Text(
-                AppText.login.toUpperCase(),
-                style: const TextStyle(color: Colors.white),
-              ),
               borderRadius: 20,
               color: Theme.of(context).colorScheme.primary,
               height: context.height * 0.07,
               width: context.width * 0.6,
+              child: Text(
+                AppText.login.toUpperCase(),
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
             context.emptySizedHeightBoxLow3x,
             const Text(AppText.or),

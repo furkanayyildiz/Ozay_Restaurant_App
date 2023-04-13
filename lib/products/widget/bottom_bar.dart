@@ -8,7 +8,7 @@ class BottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConvexAppBar(
       style: TabStyle.fixedCircle,
-      backgroundColor: Colors.red,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       initialActiveIndex: 2,
       shadowColor: Colors.black38,
       cornerRadius: 15,

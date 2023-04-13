@@ -34,11 +34,11 @@ class PopAppbar extends StatelessWidget with PreferredSizeWidget {
                 MaterialPageRoute(builder: (context) => const LoginView()),
               );
             },
-            child: Text("Login"))
+            child: const Text("Login"))
       ],
       leadingWidth: 60,
       toolbarHeight: appBarHeight.height,
-      backgroundColor: Colors.red,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       elevation: 4,
     );
   }

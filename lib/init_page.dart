@@ -3,6 +3,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ozay_restaurant_app/products/widget/profile/constants.dart';
+import 'package:ozay_restaurant_app/view/contact_page.dart';
 
 // View
 import './view/home_page.dart';
