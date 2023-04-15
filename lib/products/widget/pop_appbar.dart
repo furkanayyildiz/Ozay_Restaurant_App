@@ -3,46 +3,40 @@ import 'package:flutter/material.dart';
 import '../../view/login_view.dart';
 
 class PopAppbar extends StatelessWidget with PreferredSizeWidget {
-  final Size appBarHeight;
-  final Widget? actions;
-  final void Function()? onPop;
+  final String? title;
+  final Widget? leading;
 
   const PopAppbar({
-    Key? key,
-    this.appBarHeight = const Size.fromHeight(70),
-    this.actions,
-    this.onPop,
-  }) : super(key: key);
+    this.title,
+    this.leading,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const AspectRatio(
-        aspectRatio: 4,
-        child: Image(
-          image: AssetImage('assets/images/logo.png'),
-        ),
-      ),
+      title: title == null
+          ? Center(
+              child: AspectRatio(
+                aspectRatio: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Image(
+                    image: AssetImage('assets/images/logo.png'),
+                  ),
+                ),
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(title!),
+            ),
       centerTitle: true,
       automaticallyImplyLeading: false,
-      actions: [
-        //if (actions != null) actions!
-        TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginView()),
-              );
-            },
-            child: const Text("Login"))
-      ],
-      leadingWidth: 60,
-      toolbarHeight: appBarHeight.height,
       backgroundColor: Theme.of(context).colorScheme.primary,
       elevation: 4,
     );
   }
 
   @override
-  Size get preferredSize => appBarHeight;
+  Size get preferredSize => const Size(double.maxFinite, 65);
 }
