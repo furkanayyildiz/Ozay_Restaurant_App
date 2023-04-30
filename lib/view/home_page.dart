@@ -7,6 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import '../products/widget/drawer/advanced_drawer.dart';
 import '../products/widget/drawer/drawer_content.dart';
+import './login_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,7 +22,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return AdvancedDrawerWidget(
       controller: _advancedDrawerController,
+      drawer: const DrawerContent(),
       child: Scaffold(
+        //extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: const Text('Advanced Drawer Example'),
           leading: IconButton(
@@ -39,6 +42,16 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginView()),
+                  );
+                },
+                child: Text('Login'))
+          ],
         ),
         body: Column(
           children: [
@@ -59,11 +72,60 @@ class _HomePageState extends State<HomePage> {
                     .toList(),
               ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2 / 2.5,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: GridTile(
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Image.network(
+                            "https://www.tokattadimdoner.com/image/cache/catalog/urunler/kuru_menu-750x750.jpg",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        footer: GridTileBar(
+                          backgroundColor: Colors.black87,
+                          leading: IconButton(
+                            icon: Icon(
+                              Icons.favorite,
+                            ),
+                            color: Theme.of(context).colorScheme.primary,
+                            onPressed: () {},
+                          ),
+                          //child: Text(" Eğer buraya değişmesini istemediğimiz bir widget gelseydi child ile bunu yapardık "),
+
+                          title: Text(
+                            "kuru piav menüsü",
+                            textAlign: TextAlign.center,
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(
+                              Icons.shopping_cart,
+                            ),
+                            onPressed: () {},
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            )
           ],
         ),
         bottomNavigationBar: const BottomBar(),
       ),
-      drawer: const DrawerContent(),
     );
   }
 
