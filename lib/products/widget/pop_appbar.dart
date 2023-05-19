@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../view/login_view.dart';
 
-class PopAppbar extends StatelessWidget with PreferredSizeWidget {
+class PopAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final Widget? leading;
 

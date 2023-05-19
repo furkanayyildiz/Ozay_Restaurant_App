@@ -33,7 +33,7 @@ class ProfilePage extends StatelessWidget {
                     height: kSpacingUnit.w * 2.5,
                     width: kSpacingUnit.w * 2.5,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.secondary,
                       shape: BoxShape.circle,
                     ),
                     child: Center(
@@ -66,7 +66,7 @@ class ProfilePage extends StatelessWidget {
             width: kSpacingUnit.w * 20,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             child: Center(
               child: Text(

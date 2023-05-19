@@ -1,6 +1,6 @@
 part of "init_page.dart";
 
-abstract class InitPageHelper {
+mixin InitPageHelper {
   final List<BlocProvider> blocProviders = [
     BlocProvider<HomePageBloc>(create: (context) => HomePageBloc()),
   ];
