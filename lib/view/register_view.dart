@@ -4,9 +4,46 @@ import '../products/components/app_text.dart';
 import "../products/components/custom_textfield.dart";
 import "../products/components/custom_elevated_button.dart";
 import 'login_view.dart';
+import "package:firebase_auth/firebase_auth.dart";
+import '../auth.dart';
 
-class RegisterView extends StatelessWidget {
+class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
+  String errorMessage = "";
+  //bool isLogin = true;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> createUserWithEmailAndPassword() async {
+    try {
+      await Auth()
+          .createUserWithEmailAndPassword(
+            _emailController.text,
+            _passwordController.text,
+          )
+          .then((value) => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginView()),
+              ));
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message!;
+      });
+    }
+  }
+
+  Widget _errorMessage() {
+    return Text(
+      errorMessage == "" ? "" : errorMessage,
+      style: TextStyle(color: Colors.red),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +85,7 @@ class RegisterView extends StatelessWidget {
             ),
             context.emptySizedHeightBoxLow,
             CustomTextField(
+              controller: _emailController,
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.email,
@@ -58,6 +96,7 @@ class RegisterView extends StatelessWidget {
             ),
             context.emptySizedHeightBoxLow,
             CustomTextField(
+              controller: _passwordController,
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.password,
@@ -80,6 +119,7 @@ class RegisterView extends StatelessWidget {
             ),
             context.emptySizedHeightBoxLow3x,
             CustomElevatedButton(
+              onPressed: createUserWithEmailAndPassword,
               child: Text(
                 AppText.signUp.toUpperCase(),
                 style: const TextStyle(color: Colors.white),
@@ -91,6 +131,8 @@ class RegisterView extends StatelessWidget {
             ),
             context.emptySizedHeightBoxLow3x,
             bottomText(context),
+            context.emptySizedHeightBoxLow3x,
+            _errorMessage(),
           ],
         ),
       ),

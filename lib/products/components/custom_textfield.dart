@@ -8,7 +8,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final String? hinttext;
-
+  final TextEditingController? controller;
   const CustomTextField({
     Key? key,
     this.height,
@@ -17,6 +17,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.child,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -37,6 +38,7 @@ class CustomTextField extends StatelessWidget {
       ),
       child: Center(
         child: TextField(
+          controller: controller,
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,

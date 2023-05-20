@@ -1,12 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:ozay_restaurant_app/view/home_page.dart';
 import '../products/components/app_text.dart';
 import "../products/components/custom_textfield.dart";
 import "../products/components/custom_elevated_button.dart";
 import './register_view.dart';
+import "package:firebase_auth/firebase_auth.dart";
+import '../auth.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  String errorMessage = "";
+  bool isLogin = true;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      await Auth()
+          .signInWithEmailAndPassword(
+            _emailController.text,
+            _passwordController.text,
+          )
+          .then((value) => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              ));
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message!;
+      });
+    }
+  }
+
+  Widget _errorMessage() {
+    return Text(
+      errorMessage == "" ? "" : errorMessage,
+      style: TextStyle(color: Colors.red),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +66,7 @@ class LoginView extends StatelessWidget {
             topText(context),
             context.emptySizedHeightBoxLow3x,
             CustomTextField(
+              controller: _emailController,
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.email,
@@ -38,6 +77,7 @@ class LoginView extends StatelessWidget {
             ),
             context.emptySizedHeightBoxLow,
             CustomTextField(
+              controller: _passwordController,
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.password,
@@ -50,6 +90,7 @@ class LoginView extends StatelessWidget {
             midText(context),
             context.emptySizedHeightBoxLow,
             CustomElevatedButton(
+              onPressed: signInWithEmailAndPassword,
               borderRadius: 20,
               color: Theme.of(context).colorScheme.primary,
               height: context.height * 0.07,
@@ -66,6 +107,8 @@ class LoginView extends StatelessWidget {
             context.emptySizedHeightBoxLow,
             socialIcon(context),
             bottomText(context),
+            context.emptySizedHeightBoxLow3x,
+            _errorMessage(),
           ],
         ),
       ),

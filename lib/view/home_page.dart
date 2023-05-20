@@ -8,6 +8,8 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import '../products/widget/drawer/advanced_drawer.dart';
 import '../products/widget/drawer/drawer_content.dart';
 import './login_view.dart';
+import "package:firebase_auth/firebase_auth.dart";
+import '../auth.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,6 +20,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _advancedDrawerController = AdvancedDrawerController();
+
+  final User? user = Auth().currentUser;
+
+  Future<void> _signOut() async {
+    await Auth().signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AdvancedDrawerWidget(
@@ -42,19 +51,16 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          actions: [
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginView()),
-                  );
-                },
-                child: Text('Login'))
-          ],
+          actions: [ElevatedButton(onPressed: _signOut, child: Text("Logout"))],
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(user?.email ?? "No User"),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
               padding: const EdgeInsets.only(top: 10),
               child: CarouselSlider(
