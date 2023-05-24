@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import '../core/User/bloc/user_bloc.dart';
 import '../products/components/app_text.dart';
 import "../products/components/custom_textfield.dart";
 import "../products/components/custom_elevated_button.dart";
@@ -48,11 +50,15 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _body(context),
+      body: BlocBuilder<UserBloc, UserState>(
+        builder: (context, state) {
+          return _body(context, state);
+        },
+      ),
     );
   }
 
-  SizedBox _body(BuildContext context) {
+  SizedBox _body(BuildContext context, UserState state) {
     return SizedBox(
       height: context.height * 1,
       width: context.width * 1,
@@ -119,15 +125,24 @@ class _RegisterViewState extends State<RegisterView> {
             ),
             context.emptySizedHeightBoxLow3x,
             CustomElevatedButton(
-              onPressed: createUserWithEmailAndPassword,
-              child: Text(
-                AppText.signUp.toUpperCase(),
-                style: const TextStyle(color: Colors.white),
-              ),
+              onPressed: () async {
+                context.read<UserBloc>().add(RegisterEvent(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                    ));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginView()),
+                );
+              },
               borderRadius: 20,
               color: Theme.of(context).colorScheme.primary,
               height: context.height * 0.07,
               width: context.width * 0.6,
+              child: Text(
+                AppText.signUp.toUpperCase(),
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
             context.emptySizedHeightBoxLow3x,
             bottomText(context),

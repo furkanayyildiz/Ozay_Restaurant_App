@@ -22,15 +22,10 @@ class Auth {
     );
   }
 
-  Future<void> signOut() async {
-    await _firebaseAuth.signOut();
-  }
-
-  // Future<User?> signIn(String email, String password) async {
+  // Future<void> signInWithEmailAndPassword(String email, String password) async {
   //   try {
-  //     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+  //     await _firebaseAuth.signInWithEmailAndPassword(
   //         email: email, password: password);
-  //     return userCredential.user;
   //   } on FirebaseAuthException catch (e) {
   //     if (e.code == 'user-not-found') {
   //       print("No user found for that email.");
@@ -40,11 +35,11 @@ class Auth {
   //   }
   // }
 
-  // Future<User?> signUp(String email, String password) async {
+  // Future<void> createUserWithEmailAndPassword(
+  //     String email, String password) async {
   //   try {
-  //     UserCredential userCredential = await _auth
-  //         .createUserWithEmailAndPassword(email: email, password: password);
-  //     return userCredential.user;
+  //     await _firebaseAuth.createUserWithEmailAndPassword(
+  //         email: email, password: password);
   //   } on FirebaseAuthException catch (e) {
   //     if (e.code == 'weak-password') {
   //       print("The password provided is too weak.");
@@ -54,7 +49,7 @@ class Auth {
   //   }
   // }
 
-  // Future<void> signOut() async {
-  //   await _auth.signOut();
-  // }
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
+  }
 }

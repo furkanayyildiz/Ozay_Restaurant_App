@@ -3,6 +3,7 @@ part of "init_page.dart";
 mixin InitPageHelper {
   final List<BlocProvider> blocProviders = [
     BlocProvider<HomePageBloc>(create: (context) => HomePageBloc()),
+    BlocProvider<UserBloc>(create: (context) => UserBloc()),
   ];
 
   final Map<String, Widget Function(BuildContext)> routes = {

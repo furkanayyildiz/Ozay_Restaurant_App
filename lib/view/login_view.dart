@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:ozay_restaurant_app/panel_control.dart';
+import 'package:ozay_restaurant_app/view/admin_control_panel_page.dart';
 import 'package:ozay_restaurant_app/view/home_page.dart';
+import '../core/User/bloc/user_bloc.dart';
 import '../products/components/app_text.dart';
 import "../products/components/custom_textfield.dart";
 import "../products/components/custom_elevated_button.dart";
@@ -49,11 +53,15 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _body(context),
+      body: BlocBuilder<UserBloc, UserState>(
+        builder: (context, state) {
+          return _body(context, state);
+        },
+      ),
     );
   }
 
-  SizedBox _body(BuildContext context) {
+  SizedBox _body(BuildContext context, UserState state) {
     return SizedBox(
       height: context.height * 1,
       width: context.width * 1,
@@ -90,7 +98,13 @@ class _LoginViewState extends State<LoginView> {
             midText(context),
             context.emptySizedHeightBoxLow,
             CustomElevatedButton(
-              onPressed: signInWithEmailAndPassword,
+              onPressed: () {
+                context.read<UserBloc>().add(LoginEvent(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      context: context,
+                    ));
+              },
               borderRadius: 20,
               color: Theme.of(context).colorScheme.primary,
               height: context.height * 0.07,

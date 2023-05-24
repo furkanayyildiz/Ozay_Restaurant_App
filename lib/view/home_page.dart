@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ozay_restaurant_app/products/widget/carousel_slider/carousel_card.dart';
 import 'package:ozay_restaurant_app/products/widget/carousel_slider/category_model.dart';
+import '../core/User/bloc/user_bloc.dart';
 import '../products/widget/bottom_bar.dart';
 import '../products/widget/pop_appbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -29,109 +31,132 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return AdvancedDrawerWidget(
-      controller: _advancedDrawerController,
-      drawer: const DrawerContent(),
-      child: Scaffold(
-        //extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          title: const Text('Advanced Drawer Example'),
-          leading: IconButton(
-            onPressed: _handleMenuButtonPressed,
-            icon: ValueListenableBuilder<AdvancedDrawerValue>(
-              valueListenable: _advancedDrawerController,
-              builder: (_, value, __) {
-                return AnimatedSwitcher(
-                  duration: Duration(milliseconds: 250),
-                  child: Icon(
-                    value.visible ? Icons.clear : Icons.menu,
-                    key: ValueKey<bool>(value.visible),
-                  ),
+    return BlocBuilder<UserBloc, UserState>(
+      builder: (context, state) {
+        return AdvancedDrawerWidget(
+          controller: _advancedDrawerController,
+          drawer: const DrawerContent(),
+          child: Scaffold(
+            //extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              title: const Text('Advanced Drawer Example'),
+              leading: IconButton(
+                onPressed: _handleMenuButtonPressed,
+                icon: ValueListenableBuilder<AdvancedDrawerValue>(
+                  valueListenable: _advancedDrawerController,
+                  builder: (_, value, __) {
+                    return AnimatedSwitcher(
+                      duration: Duration(milliseconds: 250),
+                      child: Icon(
+                        value.visible ? Icons.clear : Icons.menu,
+                        key: ValueKey<bool>(value.visible),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              actions: [
+                state.isUserLoggedIn == false
+                    ? ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginView()),
+                          );
+                        },
+                        child: Text("Login"))
+                    : ElevatedButton(
+                        onPressed: () {
+                          context.read<UserBloc>().add(LogoutEvent());
+                        },
+                        child: Text("Logout"),
+                      )
+              ],
+            ),
+            body: BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          aspectRatio: 2.0,
+                          viewportFraction: 0.9,
+                          enlargeCenterPage: true,
+                          enableInfiniteScroll: false,
+                          enlargeStrategy: CenterPageEnlargeStrategy.height,
+                          initialPage: 2,
+                          autoPlay: true,
+                        ),
+                        items: Category.categories
+                            .map((category) => CarouselCard(category: category))
+                            .toList(),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 2 / 2.5,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemCount: 4,
+                          itemBuilder: (context, index) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: GridTile(
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: Image.network(
+                                    "https://www.tokattadimdoner.com/image/cache/catalog/urunler/kuru_menu-750x750.jpg",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                footer: GridTileBar(
+                                  backgroundColor: Colors.black87,
+                                  leading: IconButton(
+                                    icon: Icon(
+                                      Icons.favorite,
+                                    ),
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    onPressed: () {},
+                                  ),
+                                  //child: Text(" Eğer buraya değişmesini istemediğimiz bir widget gelseydi child ile bunu yapardık "),
+
+                                  title: Text(
+                                    "kuru piav menüsü",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  trailing: IconButton(
+                                    icon: Icon(
+                                      Icons.shopping_cart,
+                                    ),
+                                    onPressed: () {},
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                    )
+                  ],
                 );
               },
             ),
+            bottomNavigationBar: const BottomBar(),
           ),
-          actions: [ElevatedButton(onPressed: _signOut, child: Text("Logout"))],
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(user?.email ?? "No User"),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 10),
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  aspectRatio: 2.0,
-                  viewportFraction: 0.9,
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                  enlargeStrategy: CenterPageEnlargeStrategy.height,
-                  initialPage: 2,
-                  autoPlay: true,
-                ),
-                items: Category.categories
-                    .map((category) => CarouselCard(category: category))
-                    .toList(),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 2 / 2.5,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: GridTile(
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Image.network(
-                            "https://www.tokattadimdoner.com/image/cache/catalog/urunler/kuru_menu-750x750.jpg",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        footer: GridTileBar(
-                          backgroundColor: Colors.black87,
-                          leading: IconButton(
-                            icon: Icon(
-                              Icons.favorite,
-                            ),
-                            color: Theme.of(context).colorScheme.primary,
-                            onPressed: () {},
-                          ),
-                          //child: Text(" Eğer buraya değişmesini istemediğimiz bir widget gelseydi child ile bunu yapardık "),
-
-                          title: Text(
-                            "kuru piav menüsü",
-                            textAlign: TextAlign.center,
-                          ),
-                          trailing: IconButton(
-                            icon: Icon(
-                              Icons.shopping_cart,
-                            ),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-            )
-          ],
-        ),
-        bottomNavigationBar: const BottomBar(),
-      ),
+        );
+      },
     );
   }
 

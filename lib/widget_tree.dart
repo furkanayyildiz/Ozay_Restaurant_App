@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import "package:firebase_auth/firebase_auth.dart";
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ozay_restaurant_app/view/admin_control_panel_page.dart';
 import 'package:ozay_restaurant_app/view/home_page.dart';
 import './auth.dart';
 import './view/login_view.dart';
 import './view/register_view.dart';
+import './core/User/bloc/user_bloc.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
@@ -15,14 +18,28 @@ class WidgetTree extends StatefulWidget {
 class _WidgetTreeState extends State<WidgetTree> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: Auth().authStateChanges,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return const HomePage();
-        } else {
-          return const LoginView();
-        }
+    return BlocBuilder<UserBloc, UserState>(
+      builder: (context, state) {
+        return StreamBuilder(
+          stream: Auth().authStateChanges,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.email == "admin@gmail.com") {
+                context
+                    .read<UserBloc>()
+                    .add(IsUserLoggedIn(user: snapshot.data!));
+                return const AdminControlPanelPage();
+              } else {
+                context
+                    .read<UserBloc>()
+                    .add(IsUserLoggedIn(user: snapshot.data!));
+                return const HomePage();
+              }
+            } else {
+              return const HomePage();
+            }
+          },
+        );
       },
     );
   }
