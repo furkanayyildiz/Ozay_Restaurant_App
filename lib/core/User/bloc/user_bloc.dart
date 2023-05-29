@@ -42,8 +42,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         ));
         Navigator.push(
           event.context,
-          MaterialPageRoute(
-              builder: (context) => const AdminControlPanelPage()),
+          MaterialPageRoute(builder: (context) => const AdminPanelPage()),
         );
       } else {
         emit(state.copyWith(

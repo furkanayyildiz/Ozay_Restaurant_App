@@ -28,7 +28,7 @@ class _WidgetTreeState extends State<WidgetTree> {
                 context
                     .read<UserBloc>()
                     .add(IsUserLoggedIn(user: snapshot.data!));
-                return const AdminControlPanelPage();
+                return const AdminPanelPage();
               } else {
                 context
                     .read<UserBloc>()
