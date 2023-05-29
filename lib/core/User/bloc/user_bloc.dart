@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import "package:firebase_auth/firebase_auth.dart";
 import 'package:ozay_restaurant_app/init_page.dart';
 import "../../../auth.dart";
-import '../../../view/admin_control_panel_page.dart';
+import '../../../view/admin_panel_views/admin_control_panel_page.dart';
 import '../../../view/home_page.dart';
 part 'user_event.dart';
 part 'user_state.dart';

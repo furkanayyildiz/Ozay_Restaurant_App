@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:firebase_auth/firebase_auth.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ozay_restaurant_app/view/admin_control_panel_page.dart';
+import 'package:ozay_restaurant_app/view/admin_panel_views/admin_control_panel_page.dart';
 import 'package:ozay_restaurant_app/view/home_page.dart';
 import './auth.dart';
 import './view/login_view.dart';

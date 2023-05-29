@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ozay_restaurant_app/view/home_page.dart';
 
-import '../core/User/bloc/user_bloc.dart';
+import '../../core/User/bloc/user_bloc.dart';
 
 class AdminControlPanelPage extends StatelessWidget {
   const AdminControlPanelPage({super.key});

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:ozay_restaurant_app/panel_control.dart';
-import 'package:ozay_restaurant_app/view/admin_control_panel_page.dart';
+import 'package:ozay_restaurant_app/view/admin_panel_views/admin_control_panel_page.dart';
 import 'package:ozay_restaurant_app/view/home_page.dart';
 import '../core/User/bloc/user_bloc.dart';
 import '../products/components/app_text.dart';
