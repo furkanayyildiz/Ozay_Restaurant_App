@@ -8,11 +8,11 @@ abstract class UserEvent extends Equatable {
 }
 
 class IsUserLoggedIn extends UserEvent {
-  final User user;
-  const IsUserLoggedIn({required this.user});
+  //final User user;
+  const IsUserLoggedIn();
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [];
 }
 
 class LoginEvent extends UserEvent {
@@ -27,12 +27,27 @@ class LoginEvent extends UserEvent {
 }
 
 class RegisterEvent extends UserEvent {
+  final String name;
+  final String surname;
   final String email;
+  final String phone;
   final String password;
-  const RegisterEvent({required this.email, required this.password});
+  const RegisterEvent({
+    required this.name,
+    required this.surname,
+    required this.email,
+    required this.phone,
+    required this.password,
+  });
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [
+        name,
+        surname,
+        email,
+        phone,
+        password,
+      ];
 }
 
 class LogoutEvent extends UserEvent {

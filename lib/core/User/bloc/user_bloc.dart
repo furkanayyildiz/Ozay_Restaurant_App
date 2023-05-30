@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import "package:firebase_auth/firebase_auth.dart";
+import 'package:firebase_core/firebase_core.dart';
+import 'package:ozay_restaurant_app/core/User/model/user_model.dart';
 import 'package:ozay_restaurant_app/init_page.dart';
 import "../../../auth.dart";
 import '../../../view/admin_panel_views/admin_control_panel_page.dart';
@@ -20,7 +23,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   FutureOr<void> _isUserLoggedIn(
       IsUserLoggedIn event, Emitter<UserState> emit) {
-    emit(state.copyWith(isUserLoggedIn: true, user: event.user));
+    emit(state.copyWith(isUserLoggedIn: true));
   }
 
   void _loginEvent(LoginEvent event, Emitter<UserState> emit) async {
@@ -34,7 +37,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if (user!.email! == "admin@gmail.com") {
         emit(state.copyWith(
           isUserLoggedIn: true,
-          user: user,
+          //user: user,
           userStatus: UserStatus.loggedIn,
           isUserAdmin: true,
         ));
@@ -43,12 +46,20 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           MaterialPageRoute(builder: (context) => const AdminPanelPage()),
         );
       } else {
-        emit(state.copyWith(
-          isUserLoggedIn: true,
-          user: user,
-          userStatus: UserStatus.loggedIn,
-          isUserAdmin: false,
-        ));
+        final docUser =
+            FirebaseFirestore.instance.collection("Users").doc(user.uid);
+        final snapshot = await docUser.get();
+        if (snapshot.exists) {
+          var user = UserModel.fromFirestore(snapshot.data()!);
+          emit(state.copyWith(
+            isUserLoggedIn: true,
+            user: user,
+            userStatus: UserStatus.loggedIn,
+            isUserAdmin: false,
+          ));
+          print("####################" + user.phone);
+        }
+
         Navigator.push(
           event.context,
           MaterialPageRoute(builder: (context) => const HomePage()),
@@ -77,10 +88,22 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       RegisterEvent event, Emitter<UserState> emit) async {
     try {
       emit(state.copyWith(registerStatus: RegisterStatus.registering));
-      await Auth().createUserWithEmailAndPassword(
+      var user = await Auth().createUserWithEmailAndPassword(
         event.email,
         event.password,
       );
+      final docUser =
+          FirebaseFirestore.instance.collection("Users").doc(user.uid);
+      final userModel = UserModel(
+        name: event.name,
+        surname: event.surname,
+        email: event.email,
+        phone: event.phone,
+        uId: user.uid,
+      );
+      final toFirestoreUser = userModel.toFirestore();
+      await docUser.set(toFirestoreUser);
+
       emit(state.copyWith(registerStatus: RegisterStatus.registered));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

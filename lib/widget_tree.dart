@@ -25,14 +25,10 @@ class _WidgetTreeState extends State<WidgetTree> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!.email == "admin@gmail.com") {
-                context
-                    .read<UserBloc>()
-                    .add(IsUserLoggedIn(user: snapshot.data!));
+                context.read<UserBloc>().add(IsUserLoggedIn());
                 return const AdminPanelPage();
               } else {
-                context
-                    .read<UserBloc>()
-                    .add(IsUserLoggedIn(user: snapshot.data!));
+                context.read<UserBloc>().add(IsUserLoggedIn());
                 return const HomePage();
               }
             } else {

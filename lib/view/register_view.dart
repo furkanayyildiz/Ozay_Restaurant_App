@@ -19,7 +19,10 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   String errorMessage = "";
   //bool isLogin = true;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _surnameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> createUserWithEmailAndPassword() async {
@@ -71,6 +74,7 @@ class _RegisterViewState extends State<RegisterView> {
             topText(context),
             context.emptySizedHeightBoxLow3x,
             CustomTextField(
+              controller: _nameController,
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.firstName,
@@ -81,6 +85,7 @@ class _RegisterViewState extends State<RegisterView> {
             ),
             context.emptySizedHeightBoxLow,
             CustomTextField(
+              controller: _surnameController,
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.lastName,
@@ -102,6 +107,7 @@ class _RegisterViewState extends State<RegisterView> {
             ),
             context.emptySizedHeightBoxLow,
             CustomTextField(
+              controller: _phoneController,
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.phone,
@@ -126,7 +132,10 @@ class _RegisterViewState extends State<RegisterView> {
             CustomElevatedButton(
               onPressed: () async {
                 context.read<UserBloc>().add(RegisterEvent(
+                      name: _nameController.text,
+                      surname: _surnameController.text,
                       email: _emailController.text,
+                      phone: _phoneController.text,
                       password: _passwordController.text,
                     ));
                 Navigator.push(

@@ -16,8 +16,9 @@ enum RegisterStatus {
 
 class UserState extends Equatable {
   final bool isUserLoggedIn;
+  //Todo alttaki bool u kaldır
   final bool isUserAdmin;
-  final User? user;
+  final UserModel? user;
   final String? loginErrorMessage;
   final RegisterStatus registerStatus;
 
@@ -43,7 +44,7 @@ class UserState extends Equatable {
 
   UserState copyWith({
     bool? isUserLoggedIn,
-    User? user,
+    UserModel? user,
     String? loginErrorMessage,
     bool? isUserAdmin,
     RegisterStatus? registerStatus,

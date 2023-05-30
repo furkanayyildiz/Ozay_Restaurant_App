@@ -7,27 +7,25 @@ class UserModel {
   final String phone;
   final String uId;
 
-  UserModel(
-    this.name,
-    this.surname,
-    this.email,
-    this.phone,
-    this.uId,
-  );
+  UserModel({
+    required this.name,
+    required this.surname,
+    required this.email,
+    required this.phone,
+    required this.uId,
+  });
 
-  factory UserModel.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> document) {
-    final data = document.data()!;
+  static UserModel fromFirestore(Map<String, dynamic> firestore) {
     return UserModel(
-      data['name'],
-      data['surname'],
-      data['email'],
-      data['phone'],
-      data['uId'],
+      name: firestore['name'],
+      surname: firestore['surname'],
+      email: firestore['email'],
+      phone: firestore['phone'],
+      uId: firestore['uId'],
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toFirestore() {
     return <String, dynamic>{
       'name': name,
       "surname": surname,
