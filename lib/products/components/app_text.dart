@@ -5,7 +5,7 @@ class AppText {
   static const String password = "Password";
   static const String firstName = "First Name";
   static const String lastName = "Last Name";
-  static const String confirm = "Confirm Password";
+  static const String phone = "Phone Number +90";
   static const String rememberMe = "Remember Me";
   static const String forgotPassword = "Forgot Password";
   static const String account = "Don't have an account?";

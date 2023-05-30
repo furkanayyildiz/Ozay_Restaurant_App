@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ozay_restaurant_app/products/widget/admin_panel_page_item.dart';
+import 'package:ozay_restaurant_app/products/widget/admin_panel/admin_panel_page_item.dart';
 import 'package:ozay_restaurant_app/view/home_page.dart';
 
 import '../../core/User/bloc/user_bloc.dart';
@@ -45,17 +45,6 @@ class AdminPanelPage extends StatelessWidget {
                 .map((data) => AdminPanelPageItem(data))
                 .toList(),
           ),
-          // Center(
-          //     child: ElevatedButton(
-          //         onPressed: () {
-          //           context.read<UserBloc>().add(LogoutEvent());
-          //           Navigator.push(
-          //             context,
-          //             MaterialPageRoute(
-          //                 builder: (context) => const HomePage()),
-          //           );
-          //         },
-          //         child: Text("Logout"))),
         );
       },
     );

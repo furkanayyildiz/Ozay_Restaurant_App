@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/admin_panel_items_model.dart';
+import '../../../core/admin_panel_items_model.dart';
 
 class AdminPanelPageItem extends StatelessWidget {
   final AdminPanelItemsModel adminPanelItemsModel;

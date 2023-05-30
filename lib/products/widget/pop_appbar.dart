@@ -5,15 +5,18 @@ import '../../view/login_view.dart';
 class PopAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final Widget? leading;
+  final List<Widget>? actions;
 
   const PopAppbar({
     this.title,
     this.leading,
+    this.actions,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: leading,
       title: title == null
           ? Center(
               child: AspectRatio(
@@ -30,6 +33,7 @@ class PopAppbar extends StatelessWidget implements PreferredSizeWidget {
               padding: const EdgeInsets.only(top: 10),
               child: Text(title!),
             ),
+      actions: actions,
       centerTitle: true,
       automaticallyImplyLeading: false,
       backgroundColor: Theme.of(context).colorScheme.primary,

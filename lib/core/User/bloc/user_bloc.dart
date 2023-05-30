@@ -25,7 +25,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   void _loginEvent(LoginEvent event, Emitter<UserState> emit) async {
     try {
-      //emit(state.copyWith(loginStatus: LoginStatus.loggingIn));
       await Auth().signInWithEmailAndPassword(
         event.email,
         event.password,
@@ -36,7 +35,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(state.copyWith(
           isUserLoggedIn: true,
           user: user,
-          //loginStatus: LoginStatus.loggedIn,
           userStatus: UserStatus.loggedIn,
           isUserAdmin: true,
         ));
@@ -48,7 +46,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(state.copyWith(
           isUserLoggedIn: true,
           user: user,
-          //loginStatus: LoginStatus.loggedIn,
           userStatus: UserStatus.loggedIn,
           isUserAdmin: false,
         ));
@@ -61,19 +58,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if (e.code == 'user-not-found') {
         emit(state.copyWith(
             loginErrorMessage: "No user found for that email.",
-            //loginStatus: LoginStatus.loginError
             userStatus: UserStatus.error));
         print("No user found for that email.");
       } else if (e.code == 'wrong-password') {
         emit(state.copyWith(
             loginErrorMessage: "Wrong password provided for that user.",
-            //loginStatus: LoginStatus.loginError
             userStatus: UserStatus.error));
         print("Wrong password provided for that user.");
       } else {
         emit(state.copyWith(
             loginErrorMessage: "Something went wrong.",
-            //loginStatus: LoginStatus.loginError
             userStatus: UserStatus.error));
       }
     }
@@ -112,14 +106,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   FutureOr<void> _logoutEvent(
       LogoutEvent event, Emitter<UserState> emit) async {
-    //emit(state.copyWith(logoutStatus: LogoutStatus.loggingOut));
     await Auth().signOut();
 
     emit(state.copyWith(
       isUserLoggedIn: false,
       user: null,
       isUserAdmin: null,
-      logoutStatus: LogoutStatus.loggedOut,
       userStatus: UserStatus.loggedOut,
     ));
   }

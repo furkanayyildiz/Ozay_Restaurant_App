@@ -102,21 +102,20 @@ class _RegisterViewState extends State<RegisterView> {
             ),
             context.emptySizedHeightBoxLow,
             CustomTextField(
+              height: context.height * 0.07,
+              width: context.width * 0.8,
+              hinttext: AppText.phone,
+              prefixIcon: Icon(
+                Icons.phone,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            context.emptySizedHeightBoxLow,
+            CustomTextField(
               controller: _passwordController,
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.password,
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              suffixIcon: const Icon(Icons.remove_red_eye),
-            ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.confirm,
               prefixIcon: Icon(
                 Icons.lock,
                 color: Theme.of(context).colorScheme.primary,

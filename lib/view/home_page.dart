@@ -38,8 +38,19 @@ class _HomePageState extends State<HomePage> {
           drawer: const DrawerContent(),
           child: Scaffold(
             //extendBodyBehindAppBar: true,
+            //! popappbar olarak kendi barını koy ...
             appBar: AppBar(
-              title: const Text('Advanced Drawer Example'),
+              title: Center(
+                child: AspectRatio(
+                  aspectRatio: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Image(
+                      image: AssetImage('assets/images/logo.png'),
+                    ),
+                  ),
+                ),
+              ),
               leading: IconButton(
                 onPressed: _handleMenuButtonPressed,
                 icon: ValueListenableBuilder<AdvancedDrawerValue>(
