@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/User/bloc/user_bloc.dart';
+import '../../../view/login_view.dart';
 
 class DrawerContent extends StatelessWidget {
   const DrawerContent({super.key});
@@ -59,12 +60,22 @@ class DrawerContent extends StatelessWidget {
                   ),
                   state.user == null
                       ? ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginView()),
+                            );
+                          },
                           leading: Icon(Icons.login),
                           title: Text('Login'),
                         )
                       : ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            context
+                                .read<UserBloc>()
+                                .add(LogoutEvent(context: context));
+                          },
                           leading: Icon(Icons.logout),
                           title: Text('Logout'),
                         ),
