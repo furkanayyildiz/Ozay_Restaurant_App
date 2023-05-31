@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ozay_restaurant_app/products/widget/carousel_slider/carousel_card.dart';
 import 'package:ozay_restaurant_app/products/widget/carousel_slider/category_model.dart';
 import '../core/User/bloc/user_bloc.dart';
-import '../products/widget/bottom_bar.dart';
+import '../products/components/bottom_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import '../products/widget/drawer/advanced_drawer.dart';

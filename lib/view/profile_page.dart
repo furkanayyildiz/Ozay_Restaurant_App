@@ -7,6 +7,7 @@ import 'package:ozay_restaurant_app/core/User/bloc/user_bloc.dart';
 import 'package:ozay_restaurant_app/view/home_page.dart';
 import 'package:ozay_restaurant_app/view/login_view.dart';
 import 'package:ozay_restaurant_app/view/register_view.dart';
+import '../products/components/bottom_bar.dart';
 import '../products/widget/profile/constants.dart';
 import '../products/widget/profile/profile_list_item.dart';
 import '../products/components/pop_appbar.dart';
@@ -213,6 +214,7 @@ class ProfilePage extends StatelessWidget {
           );
         },
       ),
+      bottomNavigationBar: const BottomBar(),
     );
   }
 
