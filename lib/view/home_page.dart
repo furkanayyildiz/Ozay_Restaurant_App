@@ -4,7 +4,6 @@ import 'package:ozay_restaurant_app/products/widget/carousel_slider/carousel_car
 import 'package:ozay_restaurant_app/products/widget/carousel_slider/category_model.dart';
 import '../core/User/bloc/user_bloc.dart';
 import '../products/widget/bottom_bar.dart';
-import '../products/widget/pop_appbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import '../products/widget/drawer/advanced_drawer.dart';
@@ -40,7 +39,7 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Color(0xFFF5F5F3),
             //extendBodyBehindAppBar: true,
             //! popappbar olarak kendi barını koy ...
-            appBar: PopAppBar(
+            appBar: AppBar(
               title: Center(
                 child: AspectRatio(
                   aspectRatio: 3,
@@ -80,7 +79,9 @@ class _HomePageState extends State<HomePage> {
                         child: Text("Login"))
                     : ElevatedButton(
                         onPressed: () {
-                          context.read<UserBloc>().add(LogoutEvent());
+                          context
+                              .read<UserBloc>()
+                              .add(LogoutEvent(context: context));
                         },
                         child: Text("Logout"),
                       ),

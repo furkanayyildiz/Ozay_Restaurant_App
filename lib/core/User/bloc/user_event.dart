@@ -51,8 +51,9 @@ class RegisterEvent extends UserEvent {
 }
 
 class LogoutEvent extends UserEvent {
-  const LogoutEvent();
+  final BuildContext context;
+  const LogoutEvent({required this.context});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [context];
 }

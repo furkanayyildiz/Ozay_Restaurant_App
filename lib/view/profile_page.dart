@@ -5,65 +5,70 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/core/User/bloc/user_bloc.dart';
 import 'package:ozay_restaurant_app/view/home_page.dart';
+import 'package:ozay_restaurant_app/view/login_view.dart';
+import 'package:ozay_restaurant_app/view/register_view.dart';
 import '../products/widget/profile/constants.dart';
 import '../products/widget/profile/profile_list_item.dart';
-import "../products/widget/pop_appbar.dart";
+import '../products/components/pop_appbar.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PopAppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        title: Text(
+          "Profile",
+        ),
+      ),
       body: ScreenUtilInit(
         builder: (context, child) {
           return BlocBuilder<UserBloc, UserState>(
             builder: (context, state) {
+              if (state.user == null) {
+                return Container(
+                  child: Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Please login to see your profile"),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginView()),
+                          );
+                        },
+                        child: Text("Login"),
+                      ),
+                      Text("Don't you have account?"),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RegisterView()),
+                          );
+                        },
+                        child: Text("Register"),
+                      ),
+                    ],
+                  )),
+                );
+              }
               return SafeArea(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(left: 20.r, top: 20.r),
-                            height: 34.h,
-                            width: 34.w,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xff236BFD),
-                            ),
-                            child: InkWell(
-                              onTap: () {},
-                              child: const Center(
-                                child: Icon(
-                                  Icons.arrow_left_outlined,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 20.r, top: 20.r),
-                            height: 25.h,
-                            width: 100.w,
-                            child: const Text(
-                              "Profile",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Poppins-Regular.ttf',
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20.r),
-                            height: 25.h,
-                            width: 20.w,
-                          )
-                        ],
-                      ),
                       Container(
                         margin: EdgeInsets.only(top: 20.r),
                         child: CircleAvatar(
@@ -192,19 +197,13 @@ class ProfilePage extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => const HomePage());
                       }),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          margin: EdgeInsets.only(top: 15.r),
-                          child: Text(
-                            'Log Out',
-                            style: const TextStyle(
-                                color: Color(0xffFE0000),
-                                fontSize: 20,
-                                fontFamily: 'Poppins-Regular.ttf',
-                                fontWeight: FontWeight.normal),
-                          ),
-                        ),
+                      ElevatedButton(
+                        onPressed: () {
+                          context
+                              .read<UserBloc>()
+                              .add(LogoutEvent(context: context));
+                        },
+                        child: Text("Logout"),
                       ),
                     ],
                   ),

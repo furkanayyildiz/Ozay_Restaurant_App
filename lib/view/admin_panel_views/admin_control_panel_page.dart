@@ -24,7 +24,7 @@ class AdminPanelPage extends StatelessWidget {
             actions: [
               ElevatedButton(
                   onPressed: () {
-                    context.read<UserBloc>().add(LogoutEvent());
+                    context.read<UserBloc>().add(LogoutEvent(context: context));
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const HomePage()),

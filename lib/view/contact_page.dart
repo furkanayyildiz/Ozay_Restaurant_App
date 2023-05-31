@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/products/widget/bottom_bar.dart';
-import 'package:ozay_restaurant_app/products/widget/pop_appbar.dart';
+import 'package:ozay_restaurant_app/products/components/pop_appbar.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});

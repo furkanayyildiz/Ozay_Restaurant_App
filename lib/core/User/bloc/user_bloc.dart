@@ -137,12 +137,18 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   FutureOr<void> _logoutEvent(
       LogoutEvent event, Emitter<UserState> emit) async {
     await Auth().signOut();
-
+    emit(state.copyWith(
+      user: null,
+    ));
     emit(state.copyWith(
       isUserLoggedIn: false,
-      user: null,
       isUserAdmin: null,
       userStatus: UserStatus.loggedOut,
     ));
+    Navigator.push(
+      event.context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + state.user!.name);
   }
 }
