@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/products/widget/bottom_bar.dart';
 import 'package:ozay_restaurant_app/products/widget/pop_appbar.dart';
 
@@ -9,7 +10,29 @@ class ContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PopAppbar(),
+      appBar: PopAppBar(
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: IconButton(
+              icon: Icon(
+                LineAwesomeIcons.arrow_left,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          title: Center(
+            child: AspectRatio(
+              aspectRatio: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Image(
+                  image: AssetImage('assets/images/logo.png'),
+                ),
+              ),
+            ),
+          )),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

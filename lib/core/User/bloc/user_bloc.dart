@@ -15,15 +15,22 @@ part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserState()) {
-    on<IsUserLoggedIn>(_isUserLoggedIn);
     on<LoginEvent>(_loginEvent);
     on<RegisterEvent>(_registerEvent);
     on<LogoutEvent>(_logoutEvent);
+    on<IsUserLoggedIn>(_isUserLoggedIn);
   }
 
   FutureOr<void> _isUserLoggedIn(
-      IsUserLoggedIn event, Emitter<UserState> emit) {
-    emit(state.copyWith(isUserLoggedIn: true));
+      IsUserLoggedIn event, Emitter<UserState> emit) async {
+    var user = Auth().currentUser;
+    final docUser =
+        FirebaseFirestore.instance.collection("Users").doc(user!.uid);
+    final snapshot = await docUser.get();
+    if (snapshot.exists) {
+      var user = UserModel.fromFirestore(snapshot.data()!);
+      emit(state.copyWith(isUserLoggedIn: true, user: user));
+    }
   }
 
   void _loginEvent(LoginEvent event, Emitter<UserState> emit) async {

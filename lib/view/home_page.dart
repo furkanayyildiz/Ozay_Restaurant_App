@@ -37,33 +37,34 @@ class _HomePageState extends State<HomePage> {
           controller: _advancedDrawerController,
           drawer: const DrawerContent(),
           child: Scaffold(
+            backgroundColor: Color(0xFFF5F5F3),
             //extendBodyBehindAppBar: true,
             //! popappbar olarak kendi barını koy ...
-            appBar: AppBar(
+            appBar: PopAppBar(
               title: Center(
                 child: AspectRatio(
                   aspectRatio: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Image(
-                      image: AssetImage('assets/images/logo.png'),
-                    ),
+                  child: Image(
+                    image: AssetImage('assets/images/logo.png'),
                   ),
                 ),
               ),
-              leading: IconButton(
-                onPressed: _handleMenuButtonPressed,
-                icon: ValueListenableBuilder<AdvancedDrawerValue>(
-                  valueListenable: _advancedDrawerController,
-                  builder: (_, value, __) {
-                    return AnimatedSwitcher(
-                      duration: Duration(milliseconds: 250),
-                      child: Icon(
-                        value.visible ? Icons.clear : Icons.menu,
-                        key: ValueKey<bool>(value.visible),
-                      ),
-                    );
-                  },
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 20),
+                child: IconButton(
+                  onPressed: _handleMenuButtonPressed,
+                  icon: ValueListenableBuilder<AdvancedDrawerValue>(
+                    valueListenable: _advancedDrawerController,
+                    builder: (_, value, __) {
+                      return AnimatedSwitcher(
+                        duration: Duration(milliseconds: 250),
+                        child: Icon(
+                          value.visible ? Icons.clear : Icons.menu,
+                          key: ValueKey<bool>(value.visible),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               actions: [
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                           context.read<UserBloc>().add(LogoutEvent());
                         },
                         child: Text("Logout"),
-                      )
+                      ),
               ],
             ),
             body: BlocBuilder<UserBloc, UserState>(
@@ -113,52 +114,128 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Expanded(
                       child: GridView.builder(
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 2 / 2.5,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                          ),
-                          itemCount: 4,
-                          itemBuilder: (context, index) {
-                            return ClipRRect(
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.7,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                        ),
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            width: 200,
+                            height: 265,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
-                              child: GridTile(
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Image.network(
-                                    "https://www.tokattadimdoner.com/image/cache/catalog/urunler/kuru_menu-750x750.jpg",
-                                    fit: BoxFit.cover,
-                                  ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 3,
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 3),
                                 ),
-                                footer: GridTileBar(
-                                  backgroundColor: Colors.black87,
-                                  leading: IconButton(
-                                    icon: Icon(
-                                      Icons.favorite,
+                              ],
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          "https://www.tokattadimdoner.com/image/cache/catalog/urunler/kuru_menu-750x750.jpg",
+                                          height: 150,
+                                        ),
+                                      ),
                                     ),
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    onPressed: () {},
                                   ),
-                                  //child: Text(" Eğer buraya değişmesini istemediğimiz bir widget gelseydi child ile bunu yapardık "),
-
-                                  title: Text(
-                                    "kuru piav menüsü",
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  trailing: IconButton(
-                                    icon: Icon(
-                                      Icons.shopping_cart,
+                                  Text(
+                                    "Combo Menu",
+                                    style: TextStyle(
+                                      fontSize: 23,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    onPressed: () {},
                                   ),
-                                ),
+                                  SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                    "Kuru Pilav Cacik",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "₺ 25.00",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(Icons.add_circle_outline),
+                                        color: Colors.red,
+                                        iconSize: 28,
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
-                            );
-                          }),
+                            ),
+                          );
+                          // return ClipRRect(
+                          //   borderRadius: BorderRadius.circular(10),
+                          //   child: GridTile(
+                          //     child: GestureDetector(
+                          //       onTap: () {},
+                          //       child: Image.network(
+                          //         "https://www.tokattadimdoner.com/image/cache/catalog/urunler/kuru_menu-750x750.jpg",
+                          //         fit: BoxFit.cover,
+                          //       ),
+                          //     ),
+                          //     footer: GridTileBar(
+                          //       backgroundColor: Colors.black87,
+                          //       leading: IconButton(
+                          //         icon: Icon(
+                          //           Icons.favorite,
+                          //         ),
+                          //         color:
+                          //             Theme.of(context).colorScheme.primary,
+                          //         onPressed: () {},
+                          //       ),
+                          //       //child: Text(" Eğer buraya değişmesini istemediğimiz bir widget gelseydi child ile bunu yapardık "),
+
+                          //       title: Text(
+                          //         "kuru piav menüsü",
+                          //         textAlign: TextAlign.center,
+                          //       ),
+                          //       trailing: IconButton(
+                          //         icon: Icon(
+                          //           Icons.shopping_cart,
+                          //         ),
+                          //         onPressed: () {},
+                          //       ),
+                          //     ),
+                          //   ),
+                          // );
+                        },
+                      ),
                     )
                   ],
                 );
