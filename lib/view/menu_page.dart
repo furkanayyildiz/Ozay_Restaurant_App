@@ -5,6 +5,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/category_model.dart';
 import 'package:ozay_restaurant_app/products/components/bottom_bar.dart';
 import 'package:ozay_restaurant_app/products/components/pop_appbar.dart';
+import 'package:ozay_restaurant_app/view/category_meals_page.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -43,7 +44,11 @@ class MenuPage extends StatelessWidget {
               final category = snapshot.data;
               return ListView(
                 padding: EdgeInsets.all(16),
-                children: category!.map(buildImageCard).toList(),
+                children: category!.map(
+                  (e) {
+                    return buildImageCard(e, context);
+                  },
+                ).toList(),
               );
             } else {
               return Center(
@@ -56,7 +61,8 @@ class MenuPage extends StatelessWidget {
   }
 }
 
-Widget buildImageCard(CategoryModel categoryModel) => Card(
+Widget buildImageCard(CategoryModel categoryModel, BuildContext context) =>
+    Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -70,7 +76,15 @@ Widget buildImageCard(CategoryModel categoryModel) => Card(
             ),
             //colorFilter: ColorFilters.greyscale,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CategoryMealsPage(
+                            name: categoryModel.name.toString(),
+                          )),
+                );
+              },
             ),
             height: 240,
             fit: BoxFit.cover,
