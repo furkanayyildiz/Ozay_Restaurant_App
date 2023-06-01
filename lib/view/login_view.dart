@@ -14,6 +14,7 @@ import '../auth.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
+  static String routeName = "/login";
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -21,7 +22,6 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   String errorMessage = "";
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 

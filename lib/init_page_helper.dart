@@ -9,9 +9,10 @@ mixin InitPageHelper {
   final Map<String, Widget Function(BuildContext)> routes = {
     '/home': (context) => const HomePage(),
     '/menu': (context) => MenuPage(),
-    // '/sepet': (context) => SepetPage(),
+    // '/cart': (context) => CartPage(),
     '/contact': (context) => const ContactPage(),
     '/profile': (context) => ProfilePage(),
+    '/login': (context) => LoginView(),
   };
 
   final ThemeData themeData = ThemeData(

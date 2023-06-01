@@ -1,9 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/category_model.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/meal_model.dart';
+import 'package:ozay_restaurant_app/view/login_view.dart';
+
+import '../../core/User/bloc/user_bloc.dart';
 
 class MealDetailPage extends StatelessWidget {
   final MealModel? mealModel;
@@ -63,22 +68,49 @@ class MealDetailPage extends StatelessWidget {
                   fontStyle: FontStyle.italic),
             ),
           ),
-          Center(
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.add_shopping_cart_outlined),
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(200, 50),
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundColor: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+          BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              return Center(
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    // if(state.userModel!.cart!.contains(mealModel!.id)){
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     SnackBar(
+                    //       content: Text("This meal is already in your cart."),
+                    //       duration: Duration(seconds: 2),
+                    //     ),
+                    //   );}
+                    if (state.user == null) {
+                      CoolAlert.show(
+                        context: context,
+                        type: CoolAlertType.confirm,
+                        title: "You must login to add cart.",
+                        text: "Do you want to login?",
+                        confirmBtnText: 'Yes',
+                        cancelBtnText: 'No',
+                        confirmBtnColor: Colors.green,
+                        cancelBtnTextStyle: TextStyle(color: Colors.red),
+                        onConfirmBtnTap: () {
+                          Navigator.pushNamed(context, "/login");
+                        },
+                      );
+                    }
+                  },
+                  icon: Icon(Icons.add_shopping_cart_outlined),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(200, 50),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
+                  label: const Text("Add to Cart"),
                 ),
-              ),
-              label: const Text("Add to Cart"),
-            ),
+              );
+            },
           ),
         ],
       ),
