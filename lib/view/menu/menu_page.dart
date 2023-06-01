@@ -5,7 +5,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/category_model.dart';
 import 'package:ozay_restaurant_app/products/components/bottom_bar.dart';
 import 'package:ozay_restaurant_app/products/components/pop_appbar.dart';
-import 'package:ozay_restaurant_app/view/category_meals_page.dart';
+import 'package:ozay_restaurant_app/view/menu/category_meals_page.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});

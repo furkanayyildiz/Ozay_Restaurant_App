@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/category_model.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/meal_model.dart';
-import 'package:ozay_restaurant_app/products/components/bottom_bar.dart';
-import 'package:ozay_restaurant_app/products/components/pop_appbar.dart';
+import 'package:ozay_restaurant_app/view/menu/meal_detail_page.dart';
 
 class CategoryMealsPage extends StatelessWidget {
   final String name;
@@ -107,7 +106,16 @@ class CategoryMealsPage extends StatelessWidget {
                         fontSize: 16, fontWeight: FontWeight.w500)),
                 TextButton(
                   child: const Text('View Details'),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MealDetailPage(
+                          mealModel: mealModel,
+                        ),
+                      ),
+                    );
+                  },
                 )
               ],
             )
