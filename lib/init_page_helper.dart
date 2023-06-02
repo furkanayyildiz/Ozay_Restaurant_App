@@ -14,7 +14,10 @@ mixin InitPageHelper {
     '/profile': (context) => ProfilePage(),
     '/login': (context) => LoginView(),
     "/adminPanelUsers": (context) => const AdminPanelUsers(),
-    "/adminPanelCategories": (context) => AdminPanelCategories(),
+    "/adminPanelCategories": (context) => const AdminPanelCategories(),
+    "/adminPanelProductsCategories": (context) =>
+        const AdminPanelProductsCategories(),
+    "/adminPanelProductsList": (context) => const AdminPanelProductsList(),
   };
 
   final ThemeData themeData = ThemeData(

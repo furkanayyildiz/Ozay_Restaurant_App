@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ozay_restaurant_app/core/User/bloc/user_bloc.dart';
 import 'package:ozay_restaurant_app/products/widget/profile/constants.dart';
 import 'package:ozay_restaurant_app/view/admin_panel_views/admin_panel_categories.dart';
+import 'package:ozay_restaurant_app/view/admin_panel_views/admin_panel_products.dart';
+import 'package:ozay_restaurant_app/view/admin_panel_views/admin_panel_products_list.dart';
 import 'package:ozay_restaurant_app/view/admin_panel_views/admin_panel_users.dart';
 import 'package:ozay_restaurant_app/view/contact_page.dart';
 import 'package:ozay_restaurant_app/view/login_view.dart';

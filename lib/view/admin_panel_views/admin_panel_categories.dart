@@ -115,7 +115,7 @@ class AdminPanelCategories extends StatelessWidget {
 Widget _buildCategoriesListTile(
     CategoryModel categoryModel, BuildContext context) {
   return ListTile(
-    leading: const Icon(Icons.category),
+    leading: Image.network(categoryModel.imageLink, width: 50, height: 50),
     title: Text("${categoryModel.name}"),
     trailing: IconButton(
       icon: Icon(
