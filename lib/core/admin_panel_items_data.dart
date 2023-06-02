@@ -8,7 +8,7 @@ final List<AdminPanelItemsModel> adminPanelItems = [
     id: "1",
     title: "Users",
     icon: Icons.person,
-    route: "/users",
+    route: "/adminPanelUsers",
   ),
   AdminPanelItemsModel(
     id: "2",
@@ -26,7 +26,7 @@ final List<AdminPanelItemsModel> adminPanelItems = [
     id: "4",
     title: "Categories",
     icon: Icons.category,
-    route: "/categories",
+    route: "/adminPanelCategories",
   ),
   AdminPanelItemsModel(
     id: "5",

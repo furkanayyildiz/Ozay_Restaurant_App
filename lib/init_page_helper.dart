@@ -13,6 +13,8 @@ mixin InitPageHelper {
     '/contact': (context) => const ContactPage(),
     '/profile': (context) => ProfilePage(),
     '/login': (context) => LoginView(),
+    "/adminPanelUsers": (context) => const AdminPanelUsers(),
+    "/adminPanelCategories": (context) => AdminPanelCategories(),
   };
 
   final ThemeData themeData = ThemeData(

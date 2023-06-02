@@ -20,7 +20,7 @@ class AdminPanelPage extends StatelessWidget {
             centerTitle: true,
             automaticallyImplyLeading: false,
             backgroundColor: Theme.of(context).colorScheme.primary,
-            elevation: 4,
+            elevation: 5,
             actions: [
               ElevatedButton(
                   onPressed: () {
