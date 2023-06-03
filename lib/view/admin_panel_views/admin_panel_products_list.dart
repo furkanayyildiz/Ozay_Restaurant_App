@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/meal_model.dart';
+import 'package:ozay_restaurant_app/view/admin_panel_views/admin_panel_product_add.dart';
 import 'package:ozay_restaurant_app/view/admin_panel_views/admin_panel_product_edit.dart';
 
 class AdminPanelProductsList extends StatelessWidget {
@@ -44,6 +45,23 @@ class AdminPanelProductsList extends StatelessWidget {
             );
           }
         },
+      ),
+      floatingActionButton: SizedBox(
+        width: 60,
+        height: 60,
+        child: FloatingActionButton(
+          backgroundColor: Theme.of(context).colorScheme.tertiary,
+          splashColor: Colors.white,
+          onPressed: () {
+            MaterialPageRoute route = MaterialPageRoute(
+              builder: (context) => AdminPanelProductAdd(
+                categoryName: categoryName,
+              ),
+            );
+            Navigator.push(context, route);
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

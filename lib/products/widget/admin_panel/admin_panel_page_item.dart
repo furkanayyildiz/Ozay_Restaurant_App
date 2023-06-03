@@ -19,8 +19,8 @@ class AdminPanelPageItem extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: <Color>[
-              Color.fromARGB(255, 160, 160, 160),
-              Color.fromARGB(255, 224, 224, 224),
+              Color.fromARGB(255, 231, 87, 87),
+              Color.fromARGB(255, 245, 244, 244),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -32,11 +32,15 @@ class AdminPanelPageItem extends StatelessWidget {
             Text(
               style: const TextStyle(
                 fontSize: 15,
+                color: Colors.white70,
                 fontWeight: FontWeight.bold,
               ),
               adminPanelItemsModel.title,
             ),
-            Icon(adminPanelItemsModel.icon),
+            Icon(
+              adminPanelItemsModel.icon,
+              color: Colors.white70,
+            ),
           ],
         ),
       ),

@@ -2,19 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:kartal/kartal.dart';
-import 'package:ozay_restaurant_app/core/Menu/model/meal_model.dart';
 import 'package:ozay_restaurant_app/products/components/custom_textfield.dart';
 
-class AdminPanelProductEdit extends StatefulWidget {
-  AdminPanelProductEdit({super.key, required this.mealModel});
-  static const routeName = '/adminPanelProductEdit';
-  MealModel mealModel;
-
+class AdminPanelProductAdd extends StatefulWidget {
+  const AdminPanelProductAdd({super.key, required this.categoryName});
+  final String categoryName;
   @override
-  State<AdminPanelProductEdit> createState() => _AdminPanelProductEditState();
+  State<AdminPanelProductAdd> createState() => _AdminPanelProductAddState();
 }
 
-class _AdminPanelProductEditState extends State<AdminPanelProductEdit> {
+class _AdminPanelProductAddState extends State<AdminPanelProductAdd> {
   TextEditingController? nameController = TextEditingController();
 
   TextEditingController priceController = TextEditingController();
@@ -24,15 +21,6 @@ class _AdminPanelProductEditState extends State<AdminPanelProductEdit> {
   TextEditingController imageLinkController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  @override
-  void initState() {
-    nameController!.text = widget.mealModel.name;
-    priceController.text = widget.mealModel.price.toString();
-    descriptionController.text = widget.mealModel.description;
-    imageLinkController.text = widget.mealModel.imageLink;
-
-    super.initState();
-  }
 
   void dispose() {
     nameController!.dispose();
@@ -48,7 +36,7 @@ class _AdminPanelProductEditState extends State<AdminPanelProductEdit> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 5,
-        title: const Text("Admin Panel Product Edit"),
+        title: const Text("Admin Panel New Product Add"),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -64,7 +52,7 @@ class _AdminPanelProductEditState extends State<AdminPanelProductEdit> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10, top: 5),
                       child: const Text(
-                        "Edit Product",
+                        "Add New Product",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -76,9 +64,11 @@ class _AdminPanelProductEditState extends State<AdminPanelProductEdit> {
                     CustomTextField(
                       hinttext: "Name",
                       labelText: "Name",
-                      readOnly: true,
-                      height: context.height * 0.08,
+                      height: context.height * 0.07,
                       width: context.width * 0.8,
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: 'Name is required'),
+                      ]),
                       controller: nameController,
                     ),
                     context.emptySizedHeightBoxLow,
@@ -127,9 +117,11 @@ class _AdminPanelProductEditState extends State<AdminPanelProductEdit> {
                         if (_formKey.currentState!.validate()) {
                           final price = int.parse(priceController.text);
                           FirebaseFirestore.instance
-                              .collection(widget.mealModel.category)
-                              .doc(widget.mealModel.id)
-                              .update({
+                              .collection(widget.categoryName)
+                              .doc(nameController!.text)
+                              .set({
+                            "id": nameController!.text,
+                            "category": widget.categoryName,
                             "name": nameController!.text,
                             "price": price,
                             "description": descriptionController.text,

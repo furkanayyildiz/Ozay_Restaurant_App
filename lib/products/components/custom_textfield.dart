@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final bool readOnly;
+  final String? Function(String?)? validator;
   const CustomTextField({
     Key? key,
     this.height,
@@ -26,6 +27,7 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.focusNode,
     this.readOnly = false,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -45,7 +47,8 @@ class CustomTextField extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(15.0)),
       ),
       child: Center(
-        child: TextField(
+        child: TextFormField(
+          validator: validator,
           keyboardType: keyboardType,
           readOnly: readOnly,
           focusNode: focusNode,
