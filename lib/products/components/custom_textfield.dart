@@ -5,19 +5,27 @@ class CustomTextField extends StatelessWidget {
   final Widget? child;
   final double? height;
   final double? width;
+  final TextInputType? keyboardType;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final String? hinttext;
+  final String? labelText;
   final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final bool readOnly;
   const CustomTextField({
     Key? key,
     this.height,
     this.width,
     this.hinttext,
+    this.keyboardType,
     this.suffixIcon,
     this.prefixIcon,
+    this.labelText,
     this.child,
     this.controller,
+    this.focusNode,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -30,7 +38,7 @@ class CustomTextField extends StatelessWidget {
           BoxShadow(
             color: Colors.white,
             offset: Offset(0.0, 1.0),
-            blurRadius: 6.0,
+            blurRadius: 4.0,
           ),
         ],
         border: Border.all(color: Colors.black12),
@@ -38,11 +46,15 @@ class CustomTextField extends StatelessWidget {
       ),
       child: Center(
         child: TextField(
+          keyboardType: keyboardType,
+          readOnly: readOnly,
+          focusNode: focusNode,
           controller: controller,
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             hintText: hinttext,
+            labelText: labelText,
             hintStyle: context.textTheme.bodyText1!
                 .copyWith(fontWeight: FontWeight.normal),
             border: OutlineInputBorder(

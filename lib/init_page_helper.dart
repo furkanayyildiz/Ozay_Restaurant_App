@@ -18,6 +18,7 @@ mixin InitPageHelper {
     "/adminPanelProductsCategories": (context) =>
         const AdminPanelProductsCategories(),
     "/adminPanelProductsList": (context) => const AdminPanelProductsList(),
+    // "/adminPanelProductEdit": (context) => AdminPanelProductEdit(),
   };
 
   final ThemeData themeData = ThemeData(
