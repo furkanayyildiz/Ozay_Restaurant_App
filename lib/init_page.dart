@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ozay_restaurant_app/core/User/bloc/user_bloc.dart';
 import 'package:ozay_restaurant_app/products/widget/profile/constants.dart';
+import 'package:ozay_restaurant_app/view/profile_edit_page.dart';
+import 'package:ozay_restaurant_app/widget_tree.dart';
+
+// View
 import 'package:ozay_restaurant_app/view/admin_panel_views/admin_panel_categories.dart';
 import 'package:ozay_restaurant_app/view/admin_panel_views/admin_panel_product_edit.dart';
 import 'package:ozay_restaurant_app/view/admin_panel_views/admin_panel_products.dart';
@@ -12,9 +16,6 @@ import 'package:ozay_restaurant_app/view/admin_panel_views/admin_panel_users.dar
 import 'package:ozay_restaurant_app/view/contact_page.dart';
 import 'package:ozay_restaurant_app/view/login_view.dart';
 import 'package:ozay_restaurant_app/view/menu/menu_page.dart';
-import 'package:ozay_restaurant_app/widget_tree.dart';
-
-// View
 import './view/home_page.dart';
 import 'view/profile_page.dart';
 // Bloc

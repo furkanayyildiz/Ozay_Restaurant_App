@@ -6,7 +6,9 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/core/User/bloc/user_bloc.dart';
 import 'package:ozay_restaurant_app/view/home_page.dart';
 import 'package:ozay_restaurant_app/view/login_view.dart';
+import 'package:ozay_restaurant_app/view/profile_edit_page.dart';
 import 'package:ozay_restaurant_app/view/register_view.dart';
+import '../core/User/model/user_model.dart';
 import '../products/components/bottom_bar.dart';
 import '../products/widget/profile/constants.dart';
 import '../products/widget/profile/profile_list_item.dart';
@@ -71,7 +73,8 @@ class ProfilePage extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 20.r),
+                        padding: EdgeInsets.only(top: 18.r, bottom: 15.r),
+                        margin: EdgeInsets.only(top: 25.r),
                         child: CircleAvatar(
                           radius: 55,
                           backgroundImage:
@@ -82,7 +85,7 @@ class ProfilePage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(top: 5.r),
                         child: Text(
-                          '${state.user!.name.toString()} ${state.user!.surname.toString()}',
+                          '${state.user!.name.toString()}${state.user!.surname.toString()}',
                           style: const TextStyle(
                               color: Color(0xff1E1E1E),
                               fontSize: 25,
@@ -137,7 +140,16 @@ class ProfilePage extends StatelessWidget {
                         ],
                       ),
                       ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          final UserModel? userModel = state.user;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfileEditPage(
+                                      user: userModel,
+                                    )),
+                          );
+                        },
                         title: const Text(
                           'Your Info',
                           style: TextStyle(

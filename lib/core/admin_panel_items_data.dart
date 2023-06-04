@@ -30,8 +30,8 @@ final List<AdminPanelItemsModel> adminPanelItems = [
   ),
   AdminPanelItemsModel(
     id: "5",
-    title: "Settings",
-    icon: Icons.settings,
-    route: "/settings",
+    title: "User Advices",
+    icon: Icons.comment,
+    route: "/adminPanelWishesAndComplaints",
   ),
 ];
