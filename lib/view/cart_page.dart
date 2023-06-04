@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/auth.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/cart_model.dart';
+import 'package:ozay_restaurant_app/view/payment_page.dart';
 
 class CartPage extends StatelessWidget {
   CartPage({super.key});
@@ -103,7 +104,13 @@ class CartPage extends StatelessWidget {
                                   ],
                                 ),
                                 ElevatedButton.icon(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => PaymentPage()),
+                                    );
+                                  },
                                   label: Text("Pay Now"),
                                   icon: Icon(Icons.arrow_forward, size: 20),
                                   style: ElevatedButton.styleFrom(
