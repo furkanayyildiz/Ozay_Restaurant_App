@@ -9,10 +9,10 @@ mixin InitPageHelper {
   final Map<String, Widget Function(BuildContext)> routes = {
     '/home': (context) => const HomePage(),
     '/menu': (context) => MenuPage(),
-    // '/cart': (context) => CartPage(),
     '/contact': (context) => const ContactPage(),
     '/profile': (context) => ProfilePage(),
     '/login': (context) => LoginView(),
+    "/cart": (context) => CartPage(),
     "/adminPanelUsers": (context) => const AdminPanelUsers(),
     "/adminPanelCategories": (context) => const AdminPanelCategories(),
     "/adminPanelProductsCategories": (context) =>

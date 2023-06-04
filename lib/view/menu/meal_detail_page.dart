@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:ozay_restaurant_app/core/Menu/model/cart_model.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/category_model.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/meal_model.dart';
 import 'package:ozay_restaurant_app/view/login_view.dart';
@@ -93,6 +94,29 @@ class MealDetailPage extends StatelessWidget {
                         onConfirmBtnTap: () {
                           Navigator.pushNamed(context, "/login");
                         },
+                      );
+                    } else {
+                      final cartModel = CartModel(
+                        name: mealModel!.name,
+                        imageLink: mealModel!.imageLink,
+                        price: mealModel!.price,
+                        quantity: 1,
+                        totalPrice: mealModel!.price,
+                        id: mealModel!.id,
+                        category: mealModel!.category,
+                      );
+                      final cartItem = cartModel.toFirestore();
+                      FirebaseFirestore.instance
+                          .collection("Users")
+                          .doc(state.user!.uId)
+                          .collection("Cart")
+                          .doc(mealModel!.id)
+                          .set(cartItem);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Meal added to cart."),
+                          duration: Duration(seconds: 2),
+                        ),
                       );
                     }
                   },

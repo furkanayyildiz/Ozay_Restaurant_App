@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ozay_restaurant_app/core/User/bloc/user_bloc.dart';
 import 'package:ozay_restaurant_app/products/widget/profile/constants.dart';
+import 'package:ozay_restaurant_app/view/cart_page.dart';
+
 import 'package:ozay_restaurant_app/view/profile_edit_page.dart';
 import 'package:ozay_restaurant_app/widget_tree.dart';
 
