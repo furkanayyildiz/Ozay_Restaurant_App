@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:kartal/kartal.dart';
-import 'package:ozay_restaurant_app/core/Menu/model/meal_model.dart';
 import 'package:ozay_restaurant_app/core/User/model/user_model.dart';
 import 'package:ozay_restaurant_app/products/components/custom_textfield.dart';
 
