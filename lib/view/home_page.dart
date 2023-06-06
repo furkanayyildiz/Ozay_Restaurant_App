@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ozay_restaurant_app/core/Menu/model/cart_model.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/meal_model.dart';
 import 'package:ozay_restaurant_app/products/widget/carousel_slider/carousel_card.dart';
 import 'package:ozay_restaurant_app/products/widget/carousel_slider/category_model.dart';
@@ -220,7 +221,40 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                             IconButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                final cartModel = CartModel(
+                                                    name: meals[index].name,
+                                                    imageLink:
+                                                        meals[index].imageLink,
+                                                    price: meals[index].price,
+                                                    quantity: 1,
+                                                    totalPrice:
+                                                        meals[index].price,
+                                                    id: meals[index].id,
+                                                    category:
+                                                        meals[index].category);
+                                                final cartItem =
+                                                    cartModel.toFirestore();
+                                                FirebaseFirestore.instance
+                                                    .collection("Users")
+                                                    .doc(state.user!.uId)
+                                                    .collection("Cart")
+                                                    .doc(meals[index].id)
+                                                    .set(cartItem);
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    backgroundColor:
+                                                        Theme.of(context)
+                                                            .colorScheme
+                                                            .tertiary,
+                                                    content: Text(
+                                                        "Meal added to cart."),
+                                                    duration:
+                                                        Duration(seconds: 2),
+                                                  ),
+                                                );
+                                              },
                                               icon: Icon(
                                                   Icons.add_circle_outline),
                                               color: Colors.red,

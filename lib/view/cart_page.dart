@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/auth.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/cart_model.dart';
+import 'package:ozay_restaurant_app/view/home_page.dart';
+import 'package:ozay_restaurant_app/view/menu/menu_page.dart';
 import 'package:ozay_restaurant_app/view/payment_page.dart';
 
 class CartPage extends StatelessWidget {
@@ -39,7 +41,33 @@ class CartPage extends StatelessWidget {
           centerTitle: true,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                CoolAlert.show(
+                  context: context,
+                  type: CoolAlertType.confirm,
+                  text: "Are you sure you want to clear the cart?",
+                  confirmBtnText: "Yes",
+                  cancelBtnText: "No",
+                  onConfirmBtnTap: () {
+                    FirebaseFirestore.instance
+                        .collection('Users')
+                        .doc(user!.uid)
+                        .collection('Cart')
+                        .get()
+                        .then((snapshot) {
+                      for (DocumentSnapshot ds in snapshot.docs) {
+                        ds.reference.delete();
+                      }
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                      ),
+                    );
+                  },
+                );
+              },
               icon: Icon(LineAwesomeIcons.trash),
             ),
           ],
@@ -49,6 +77,11 @@ class CartPage extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Text('Something went wrong ${snapshot.error}');
+            } else if (!snapshot.hasData) {
+              print(!snapshot.hasData);
+              return Center(
+                child: Text("Cart is empty", style: TextStyle(fontSize: 20)),
+              );
             } else if (snapshot.hasData) {
               final cart = snapshot.data;
               int total = 0;
