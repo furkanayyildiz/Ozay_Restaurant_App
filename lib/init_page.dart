@@ -21,7 +21,6 @@ import 'package:ozay_restaurant_app/view/menu/menu_page.dart';
 import './view/home_page.dart';
 import 'view/profile_page.dart';
 // Bloc
-import 'package:ozay_restaurant_app/core/HomePage/bloc/home_page_bloc.dart';
 
 //Export
 export 'package:flutter/material.dart';

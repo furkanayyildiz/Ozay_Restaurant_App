@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/core/User/bloc/user_bloc.dart';
+import 'package:ozay_restaurant_app/view/cart_page.dart';
 import 'package:ozay_restaurant_app/view/home_page.dart';
 import 'package:ozay_restaurant_app/view/login_view.dart';
 import 'package:ozay_restaurant_app/view/profile_edit_page.dart';
@@ -189,7 +190,7 @@ class ProfilePage extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(top: 15.r, left: 15.r),
                           child: const Text(
-                            'Application Settings',
+                            'Other Informations',
                             style: TextStyle(
                               color: Color(0xff1E1E1E),
                               fontSize: 17,
@@ -199,17 +200,20 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                       ]),
-                      applicationSettingListTile("hey", "hey", () {
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage());
+                      applicationSettingListTile(
+                          "Cart", "View products in your cart", () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CartPage()),
+                        );
                       }),
-                      applicationSettingListTile("hey", "hey", () {
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage());
-                      }),
-                      applicationSettingListTile("hey", "hey", () {
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage());
+                      applicationSettingListTile("Orders", "View your orders",
+                          () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()),
+                        );
                       }),
                       ElevatedButton(
                         onPressed: () {

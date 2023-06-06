@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ozay_restaurant_app/core/Menu/model/meal_model.dart';
 import 'package:ozay_restaurant_app/products/widget/carousel_slider/carousel_card.dart';
 import 'package:ozay_restaurant_app/products/widget/carousel_slider/category_model.dart';
 import '../core/User/bloc/user_bloc.dart';
@@ -30,6 +32,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Stream<List<MealModel>> readFastMeals() => FirebaseFirestore.instance
+        .collection('Fast Meals')
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((document) => MealModel.fromFirestore(document.data()))
+            .toList());
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         return AdvancedDrawerWidget(
@@ -113,131 +121,127 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 10,
                     ),
+                    const Text(
+                      "FAST MEALS",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Expanded(
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.7,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            width: 200,
-                            height: 265,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 3,
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          "https://www.tokattadimdoner.com/image/cache/catalog/urunler/kuru_menu-750x750.jpg",
-                                          height: 150,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    "Combo Menu",
-                                    style: TextStyle(
-                                      fontSize: 23,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text(
-                                    "Kuru Pilav Cacik",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 6,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "₺ 25.00",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(Icons.add_circle_outline),
-                                        color: Colors.red,
-                                        iconSize: 28,
-                                      )
-                                    ],
-                                  )
-                                ],
+                      child: StreamBuilder<List<MealModel>>(
+                        stream: readFastMeals(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            print("###################### ${snapshot.error}");
+                            return const Text('Something went wrong');
+                          } else if (snapshot.hasData) {
+                            final meals = snapshot.data!;
+                            return GridView.builder(
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.7,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
                               ),
-                            ),
-                          );
-                          // return ClipRRect(
-                          //   borderRadius: BorderRadius.circular(10),
-                          //   child: GridTile(
-                          //     child: GestureDetector(
-                          //       onTap: () {},
-                          //       child: Image.network(
-                          //         "https://www.tokattadimdoner.com/image/cache/catalog/urunler/kuru_menu-750x750.jpg",
-                          //         fit: BoxFit.cover,
-                          //       ),
-                          //     ),
-                          //     footer: GridTileBar(
-                          //       backgroundColor: Colors.black87,
-                          //       leading: IconButton(
-                          //         icon: Icon(
-                          //           Icons.favorite,
-                          //         ),
-                          //         color:
-                          //             Theme.of(context).colorScheme.primary,
-                          //         onPressed: () {},
-                          //       ),
-                          //       //child: Text(" Eğer buraya değişmesini istemediğimiz bir widget gelseydi child ile bunu yapardık "),
-
-                          //       title: Text(
-                          //         "kuru piav menüsü",
-                          //         textAlign: TextAlign.center,
-                          //       ),
-                          //       trailing: IconButton(
-                          //         icon: Icon(
-                          //           Icons.shopping_cart,
-                          //         ),
-                          //         onPressed: () {},
-                          //       ),
-                          //     ),
-                          //   ),
-                          // );
+                              itemCount: meals.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  width: 200,
+                                  height: 265,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 3,
+                                        blurRadius: 10,
+                                        offset: const Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 10),
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: Image.network(
+                                                meals[index].imageLink,
+                                                height: 150,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          meals[index].name,
+                                          style: TextStyle(
+                                            fontSize: 23,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text(
+                                          meals[index].description,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 6,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "${meals[index].price.toString()} TL",
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                  Icons.add_circle_outline),
+                                              color: Colors.red,
+                                              iconSize: 28,
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
                         },
                       ),
-                    )
+                    ),
                   ],
                 );
               },
@@ -250,8 +254,93 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _handleMenuButtonPressed() {
-    // NOTICE: Manage Advanced Drawer state through the Controller.
-    // _advancedDrawerController.value = AdvancedDrawerValue.visible();
     _advancedDrawerController.showDrawer();
   }
+
+  Widget buildFastMealCard(BuildContext context, MealModel mealModel) =>
+      GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.7,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemBuilder: (context, index) {
+          return Container(
+            width: 200,
+            height: 265,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 3,
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          mealModel.imageLink,
+                          height: 150,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    mealModel.name,
+                    style: TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    mealModel.description,
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "${mealModel.price.toString()} TL",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.add_circle_outline),
+                        color: Colors.red,
+                        iconSize: 28,
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+      );
 }
