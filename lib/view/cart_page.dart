@@ -108,7 +108,9 @@ class CartPage extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => PaymentPage()),
+                                          builder: (context) => PaymentPage(
+                                                totalPrice: total,
+                                              )),
                                     );
                                   },
                                   label: Text("Pay Now"),

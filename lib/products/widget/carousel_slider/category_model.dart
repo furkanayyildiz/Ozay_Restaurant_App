@@ -14,24 +14,20 @@ class Category extends Equatable {
 
   static List<Category> categories = const [
     Category(
-      name: 'Pizza',
-      image:
-          'https://www.unileverfoodsolutions.com.tr/dam/global-ufs/mcos/TURKEY/calcmenu/recipes/TR-recipes/desserts-&-bakery/karışık-pizza/main-header.jpg',
+      name: 'Burger %30 OFF',
+      image: "assets/images/burger_discount.png",
     ),
     Category(
-      name: 'Burger',
-      image:
-          "https://cdn.yemek.com/uploads/2023/03/burger-king-menu-fiyatlari-2023-3.jpg",
+      name: '2 Coffee & 1 Cake',
+      image: "assets/images/coffee_discount.png",
     ),
     Category(
-      name: 'Kebap',
-      image:
-          'https://cdn.yemek.com/mnresize/940/940/uploads/2016/05/adana-kebap-one-cikan.jpg',
+      name: 'We Are Renewed',
+      image: 'assets/images/weAreRenewed_image.png',
     ),
     Category(
-      name: 'Salad',
-      image:
-          'https://d17wu0fn6x6rgz.cloudfront.net/img/w/tarif/ogt/beyaz-peynirli-akdeniz-salatasi.webp',
+      name: 'New Meal',
+      image: 'assets/images/newProduct_image.png',
     ),
   ];
 }

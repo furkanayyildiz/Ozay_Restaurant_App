@@ -13,7 +13,7 @@ class CarouselCard extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(5.0)),
         child: Stack(
           children: <Widget>[
-            Image.network(category.image, fit: BoxFit.cover, width: 1000.0),
+            Image.asset(category.image, fit: BoxFit.cover, width: 1000.0),
             Positioned(
               bottom: 0.0,
               left: 0.0,
