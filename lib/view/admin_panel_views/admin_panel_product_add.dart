@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kartal/kartal.dart';
 import 'package:ozay_restaurant_app/products/components/custom_textfield.dart';
 
@@ -95,7 +100,7 @@ class _AdminPanelProductAddState extends State<AdminPanelProductAdd> {
                                 'Description should be at least 10 digits long'),
                       ]),
                       readOnly: false,
-                      height: context.height * 0.07,
+                      height: context.height * 0.10,
                       width: context.width * 0.8,
                       controller: descriptionController,
                     ),
@@ -107,11 +112,40 @@ class _AdminPanelProductAddState extends State<AdminPanelProductAdd> {
                         RequiredValidator(errorText: 'Image Link is required'),
                       ]),
                       readOnly: false,
-                      height: context.height * 0.07,
+                      height: context.height * 0.10,
                       width: context.width * 0.8,
                       controller: imageLinkController,
                     ),
                     context.emptySizedHeightBoxLow3x,
+                    if (nameController!.text.isNotEmpty)
+                      ElevatedButton(
+                        onPressed: () async {
+                          final ImagePicker picker = ImagePicker();
+                          final XFile? image = await picker.pickImage(
+                              source: ImageSource.gallery);
+                          if (image != null) {
+                            final storageRef = FirebaseStorage.instance
+                                .ref()
+                                .child(nameController!.text);
+                            await storageRef.putFile(File(image.path));
+                            FirebaseStorage.instance
+                                .ref()
+                                .child(nameController!.text)
+                                .getDownloadURL()
+                                .then(
+                              (value) {
+                                if (value.isNotEmpty) {
+                                  setState(() {
+                                    imageLinkController.text = value;
+                                  });
+                                }
+                              },
+                            );
+                          }
+                        },
+                        child: Text("Add photo"),
+                      ),
+                    context.emptySizedHeightBoxLow,
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {

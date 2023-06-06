@@ -84,15 +84,21 @@ class MealDetailPage extends StatelessWidget {
                     if (state.user == null) {
                       CoolAlert.show(
                         context: context,
-                        type: CoolAlertType.confirm,
+                        type: CoolAlertType.info,
                         title: "You must login to add cart.",
-                        text: "Do you want to login?",
-                        confirmBtnText: 'Yes',
+                        //text: "Do you want to login?",
+                        confirmBtnText: 'OK',
                         cancelBtnText: 'No',
                         confirmBtnColor: Colors.green,
                         cancelBtnTextStyle: TextStyle(color: Colors.red),
                         onConfirmBtnTap: () {
-                          Navigator.pushNamed(context, "/login");
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginView(),
+                            ),
+                          );
                         },
                       );
                     } else {

@@ -80,7 +80,8 @@ class CartPage extends StatelessWidget {
             } else if (!snapshot.hasData) {
               print(!snapshot.hasData);
               return Center(
-                child: Text("Cart is empty", style: TextStyle(fontSize: 20)),
+                child: Text("Cart is empty",
+                    style: TextStyle(fontSize: 20, color: Colors.red)),
               );
             } else if (snapshot.hasData) {
               final cart = snapshot.data;

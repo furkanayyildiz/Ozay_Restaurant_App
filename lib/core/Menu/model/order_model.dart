@@ -46,7 +46,7 @@ class OrderModel {
       'description': description,
       'id': id,
       'totalPrice': totalPrice,
-      'cart': cart,
+      'cart': cart.map((e) => e.toFirestore()).toList(),
     };
   }
 }

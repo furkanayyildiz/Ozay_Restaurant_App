@@ -74,6 +74,7 @@ class _LoginViewState extends State<LoginView> {
             topText(context),
             context.emptySizedHeightBoxLow3x,
             CustomTextField(
+              keyboardType: TextInputType.emailAddress,
               controller: _emailController,
               height: context.height * 0.07,
               width: context.width * 0.8,
@@ -85,6 +86,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             context.emptySizedHeightBoxLow,
             CustomTextField(
+              obscureText: true,
               controller: _passwordController,
               height: context.height * 0.07,
               width: context.width * 0.8,

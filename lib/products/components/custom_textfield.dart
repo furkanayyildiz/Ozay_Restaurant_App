@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final bool readOnly;
+  final bool? obscureText;
   final String? Function(String?)? validator;
   const CustomTextField({
     Key? key,
@@ -28,6 +29,7 @@ class CustomTextField extends StatelessWidget {
     this.focusNode,
     this.readOnly = false,
     this.validator,
+    this.obscureText,
   }) : super(key: key);
 
   @override
@@ -48,6 +50,7 @@ class CustomTextField extends StatelessWidget {
       ),
       child: Center(
         child: TextFormField(
+          obscureText: obscureText ?? false,
           validator: validator,
           keyboardType: keyboardType,
           readOnly: readOnly,
