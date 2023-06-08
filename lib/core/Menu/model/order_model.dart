@@ -9,7 +9,6 @@ class OrderModel {
   final int tableNumber;
   final String description;
   final int totalPrice;
-  final List<CartModel> cart;
 
   OrderModel({
     required this.id,
@@ -20,7 +19,6 @@ class OrderModel {
     required this.tableNumber,
     required this.description,
     required this.totalPrice,
-    required this.cart,
   });
   static OrderModel fromFirestore(Map<String, dynamic> firestore) {
     return OrderModel(
@@ -32,7 +30,6 @@ class OrderModel {
       tableNumber: firestore['tableNumber'],
       description: firestore['description'],
       totalPrice: firestore['totalPrice'],
-      cart: firestore['cart'],
     );
   }
 
@@ -46,7 +43,6 @@ class OrderModel {
       'description': description,
       'id': id,
       'totalPrice': totalPrice,
-      'cart': cart.map((e) => e.toFirestore()).toList(),
     };
   }
 }

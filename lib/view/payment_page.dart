@@ -56,7 +56,7 @@ class PaymentPage extends StatelessWidget {
             return Center(child: Text("Something went wrong"));
           } else if (snapshot.hasData) {
             final cart = snapshot.data;
-            //final cart = snapshot.data;
+
             return BlocBuilder<UserBloc, UserState>(
               builder: (context, state) {
                 return SafeArea(
@@ -238,13 +238,20 @@ class PaymentPage extends StatelessWidget {
                                   phone: state.user!.phone,
                                   id: DateTime.now().toString(),
                                   totalPrice: totalPrice,
-                                  cart: cart!,
                                 );
                                 final order = orderModel.toFirestore();
                                 FirebaseFirestore.instance
                                     .collection("Orders")
-                                    .doc()
+                                    .doc(orderModel.id)
                                     .set(order);
+                                for (var i = 0; i < cart!.length; i++) {
+                                  FirebaseFirestore.instance
+                                      .collection('Orders')
+                                      .doc(orderModel.id)
+                                      .collection('Products')
+                                      .doc(cart[i].id)
+                                      .set(cart[i].toFirestore());
+                                }
                                 for (var i = 0; i < cart.length; i++) {
                                   FirebaseFirestore.instance
                                       .collection('Users')

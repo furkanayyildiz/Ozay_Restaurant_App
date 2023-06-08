@@ -14,7 +14,7 @@ final List<AdminPanelItemsModel> adminPanelItems = [
     id: "2",
     title: "Orders",
     icon: Icons.shopping_cart,
-    route: "/orders",
+    route: "/adminPanelOrders",
   ),
   AdminPanelItemsModel(
     id: "3",

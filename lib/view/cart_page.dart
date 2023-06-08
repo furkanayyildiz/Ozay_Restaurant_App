@@ -3,10 +3,13 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ozay_restaurant_app/auth.dart';
 import 'package:ozay_restaurant_app/core/Menu/model/cart_model.dart';
+import 'package:ozay_restaurant_app/core/User/bloc/user_bloc.dart';
 import 'package:ozay_restaurant_app/view/home_page.dart';
+import 'package:ozay_restaurant_app/view/login_view.dart';
 import 'package:ozay_restaurant_app/view/menu/menu_page.dart';
 import 'package:ozay_restaurant_app/view/payment_page.dart';
 
@@ -72,105 +75,145 @@ class CartPage extends StatelessWidget {
             ),
           ],
         ),
-        body: StreamBuilder<List<CartModel>>(
-          stream: readCart(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text('Something went wrong ${snapshot.error}');
-            } else if (!snapshot.hasData) {
-              print(!snapshot.hasData);
+        body: BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) {
+            if (state.isUserLoggedIn == false) {
               return Center(
-                child: Text("Cart is empty",
-                    style: TextStyle(fontSize: 20, color: Colors.red)),
-              );
-            } else if (snapshot.hasData) {
-              final cart = snapshot.data;
-              int total = 0;
-              for (var i = 0; i < cart!.length; i++) {
-                final itemTotal = cart[i].price * cart[i].quantity;
-                total = total + itemTotal;
-              }
-              print(total);
-              return Column(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: ListView(
-                      padding: EdgeInsets.all(10),
-                      children: cart.map(
-                        (cartModel) {
-                          return buildCartCard(cartModel, context);
-                        },
-                      ).toList(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: const Text(
+                        "Please login to see your cart",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 35),
-                        child: SizedBox(
-                          child: Container(
-                            color: Colors.grey[200],
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            padding: EdgeInsets.all(10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      child: Text("Total Price:",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400)),
-                                    ),
-                                    Text(
-                                      "$total ₺",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                ElevatedButton.icon(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => PaymentPage(
-                                                totalPrice: total,
-                                              )),
-                                    );
-                                  },
-                                  label: Text("Pay Now"),
-                                  icon: Icon(Icons.arrow_forward, size: 20),
-                                  style: ElevatedButton.styleFrom(
-                                    minimumSize: const Size(150, 50),
-                                    backgroundColor:
-                                        Theme.of(context).colorScheme.primary,
-                                    foregroundColor: Colors.white,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20, horizontal: 30),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginView(),
                             ),
-                          ),
-                        ),
-                      )),
-                ],
+                          );
+                        },
+                        child: Text("Login"))
+                  ],
+                ),
               );
             } else {
-              return Center(
-                child: CircularProgressIndicator(),
+              return StreamBuilder<List<CartModel>>(
+                stream: readCart(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong ${snapshot.error}');
+                  } else if (!snapshot.hasData) {
+                    print(!snapshot.hasData);
+                    return Center(
+                      child: Text("Cart is empty",
+                          style: TextStyle(fontSize: 20, color: Colors.red)),
+                    );
+                  } else if (snapshot.hasData) {
+                    final cart = snapshot.data;
+                    int total = 0;
+                    for (var i = 0; i < cart!.length; i++) {
+                      final itemTotal = cart[i].price * cart[i].quantity;
+                      total = total + itemTotal;
+                    }
+
+                    return Column(
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: ListView(
+                            padding: EdgeInsets.all(10),
+                            children: cart.map(
+                              (cartModel) {
+                                return buildCartCard(cartModel, context);
+                              },
+                            ).toList(),
+                          ),
+                        ),
+                        Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 35),
+                              child: SizedBox(
+                                child: Container(
+                                  color: Colors.grey[200],
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  padding: EdgeInsets.all(10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 10),
+                                            child: Text("Total Price:",
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w400)),
+                                          ),
+                                          Text(
+                                            "$total ₺",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      ElevatedButton.icon(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PaymentPage(
+                                                      totalPrice: total,
+                                                    )),
+                                          );
+                                        },
+                                        label: Text("Pay Now"),
+                                        icon:
+                                            Icon(Icons.arrow_forward, size: 20),
+                                        style: ElevatedButton.styleFrom(
+                                          minimumSize: const Size(150, 50),
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          foregroundColor: Colors.white,
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 20, horizontal: 30),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )),
+                      ],
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               );
             }
           },
