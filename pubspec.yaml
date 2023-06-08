@@ -54,6 +54,7 @@ dependencies:
   cool_alert: ^2.0.1
   form_field_validator: ^1.1.0
   image_picker: ^0.8.7+5
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

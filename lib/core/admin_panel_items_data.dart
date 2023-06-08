@@ -32,6 +32,6 @@ final List<AdminPanelItemsModel> adminPanelItems = [
     id: "5",
     title: "User Advices",
     icon: Icons.comment,
-    route: "/adminPanelWishesAndComplaints",
+    route: "/adminPanelOpinions",
   ),
 ];

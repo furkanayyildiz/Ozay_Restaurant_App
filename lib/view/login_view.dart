@@ -95,7 +95,6 @@ class _LoginViewState extends State<LoginView> {
                 Icons.lock,
                 color: Theme.of(context).colorScheme.primary,
               ),
-              suffixIcon: const Icon(Icons.remove_red_eye),
             ),
             midText(context),
             context.emptySizedHeightBoxLow,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ozay_restaurant_app/view/campaigns_page.dart';
+import 'package:ozay_restaurant_app/view/opinions_page.dart';
+import 'package:ozay_restaurant_app/view/profile_page.dart';
 
 import '../../../core/User/bloc/user_bloc.dart';
 import '../../../view/login_view.dart';
@@ -39,22 +42,33 @@ class DrawerContent extends StatelessWidget {
                   //   ),
                   // ),
                   ListTile(
-                    onTap: () {},
-                    leading: Icon(Icons.home),
-                    title: Text('Home'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
+                      );
+                    },
+                    leading: Icon(Icons.person_outline),
+                    title: Text('Profile'),
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CampaignsPage()),
+                      );
+                    },
                     leading: Icon(Icons.percent_outlined),
                     title: Text('Campaigns'),
                   ),
                   ListTile(
-                    onTap: () {},
-                    leading: Icon(Icons.campaign_outlined),
-                    title: Text('Announcement'),
-                  ),
-                  ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => OpinionsPage()),
+                      );
+                    },
                     leading: Icon(Icons.message_outlined),
                     title: Text('Opinions'),
                   ),
