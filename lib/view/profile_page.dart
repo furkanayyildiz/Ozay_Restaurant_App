@@ -11,15 +11,12 @@ import 'package:ozay_restaurant_app/view/profile_edit_page.dart';
 import 'package:ozay_restaurant_app/view/register_view.dart';
 import '../core/User/model/user_model.dart';
 import '../products/components/bottom_bar.dart';
-import '../products/widget/profile/constants.dart';
-import '../products/widget/profile/profile_list_item.dart';
-import '../products/components/pop_appbar.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PopAppBar(
+      appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(

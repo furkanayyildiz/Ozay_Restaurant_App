@@ -173,7 +173,7 @@ class _AdminPanelProductAddState extends State<AdminPanelProductAdd> {
                           );
                         }
                       },
-                      child: const Text("Edit Product"),
+                      child: const Text("Add Product"),
                     ),
                   ],
                 ),
