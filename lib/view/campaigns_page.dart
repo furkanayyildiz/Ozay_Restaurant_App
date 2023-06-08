@@ -14,41 +14,29 @@ class CampaignsPage extends StatelessWidget {
             .map((document) => CampaignsModel.fromFirestore(document.data()))
             .toList());
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 5,
-        title: const Text("Campaigns"),
-      ),
-      body: StreamBuilder<List<CampaignsModel>>(
-        stream: readCampaigns(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text('Something went wrong ${snapshot.error}');
-          } else if (snapshot.hasData) {
-            final campaigns = snapshot.data;
-            return ListView(
-              padding: const EdgeInsets.all(16),
-              children: campaigns!.map(
-                (e) {
-                  return _buildCampaignsListTile(e, context);
-                },
-              ).toList(),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-    );
+        appBar: AppBar(
+          centerTitle: true,
+          elevation: 5,
+          title: const Text("Campaigns"),
+        ),
+        body: Column(
+          children: [
+            _buildCampaignsListTile("2 Coffees & 1 Cake",
+                "If those who come as a couple on the weekends buy 2 coffees, one of the selected cakes is a gift."),
+            _buildCampaignsListTile("Burger %30 OFF",
+                "30% discount on each burger if each group of friends between 18-24 years old of 4 or more buys a burger on Sundays. This discount is for one time only.")
+          ],
+        ));
   }
 
-  Widget _buildCampaignsListTile(CampaignsModel e, BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Text(e.title),
-        subtitle: Text(e.description),
+  Widget _buildCampaignsListTile(String title, String description) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        child: ListTile(
+          title: Text(title),
+          subtitle: Text(description),
+        ),
       ),
     );
   }
