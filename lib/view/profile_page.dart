@@ -37,7 +37,7 @@ class ProfilePage extends StatelessWidget {
         builder: (context, child) {
           return BlocBuilder<UserBloc, UserState>(
             builder: (context, state) {
-              if (state.user == null) {
+              if (state.isUserLoggedIn == false) {
                 return Container(
                   child: Center(
                       child: Column(
@@ -205,14 +205,6 @@ class ProfilePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => CartPage()),
-                        );
-                      }),
-                      applicationSettingListTile("Orders", "View your orders",
-                          () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomePage()),
                         );
                       }),
                       ElevatedButton(

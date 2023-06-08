@@ -202,8 +202,6 @@ class PaymentPage extends StatelessWidget {
                                         ]),
                                         keyboardType: TextInputType.number,
                                         inputFormatters: [
-                                          FilteringTextInputFormatter
-                                              .digitsOnly,
                                           LengthLimitingTextInputFormatter(5),
                                         ],
                                         decoration: const InputDecoration(

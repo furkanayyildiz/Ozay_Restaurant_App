@@ -96,8 +96,8 @@ class _LoginViewState extends State<LoginView> {
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            midText(context),
-            context.emptySizedHeightBoxLow,
+            //midText(context),
+            context.emptySizedHeightBoxLow3x,
             CustomElevatedButton(
               onPressed: () {
                 context.read<UserBloc>().add(LoginEvent(
