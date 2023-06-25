@@ -42,7 +42,7 @@ The aim of the project is to make it easier for the restaurant owner to show and
 
 ## Screenshots
 
-![ss1](https://github.com/furkanayyildiz/readme/assets/59210754/d2d1bc37-a8b2-431f-b2e5-4f71a66d23f5)
+![ss1](https://github.com/furkanayyildiz/readme/assets/59210754/cb4fcc75-1e04-42c4-94e0-4ea12a05df93)
 
 ![ss2](https://github.com/furkanayyildiz/readme/assets/59210754/484a17b0-62eb-4269-8ed2-5633935048fe)
 
